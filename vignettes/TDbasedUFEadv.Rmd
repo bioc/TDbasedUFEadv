@@ -1,0 +1,43 @@
+---
+title: "TDbasedUFEadv"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{TDbasedUFEadv}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+#library(TDbasedUFEadv)
+```
+
+# Introduction 
+
+Since TDbasedUFEadv is an extended package from TDbasedUFE, please master the contents in TDbasedUFE prior to the trial of this package. 
+
+# Integrated analysis of two omics data sets
+
+Suppose we have two omics profiles
+$$
+x_{ij} \in \mathbb{R}^{N \times M} \\
+x_{ik} \in \mathbb{R}^{N \times K}
+$$
+that repesent values of $i$th feature  of $j$th and $k$th objects, respectively (i.r., these two profiles share the features).
+In this case, we generate a tensor, $x_{ijk}$, by the product of two profiles as
+$$
+x_{ijk} =  x_{ij}x_{ik} \in \mathbb{R}^{N \times M \times K}
+$$
+
+and HOSVD was applied to $x_{ijk}$ to get
+$$
+x_{ijk} = \sum_{\ell_1} \sum_{\ell_2} \sum_{ell_3} G(\ell_1 \ell_2 \ell_3) u_{\ell_1 i} u_{\ell_2 j} u_{\ell_3 k}
+$$
+After that we can follow the standard procedure to select features $i$s associated with the desirred properties reprented by the selected signular value vectors, $u_{\ell_2 j}$ and $u_{\ell_3 k}$, arrtibuted to ojjects, $j$s and $k$s.
+

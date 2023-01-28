@@ -1,0 +1,54 @@
+---
+title: "QuickStart"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{QuickStart}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(TDbasedUFEadv)
+```
+# Introduction
+Since TDbasedUFEadv is an extended package from TDbasedUFE, please master the contents in TDbasedUFE prior to the trial of this package. 
+
+# Integrated Analysis of diease-drug gene expression for drug repositioning
+
+In order to make use of TDbasedUFE for the drug riposiooning, we previously proposed[@Taguchi2017] the intergated analysis of two gene expression profiles, each of which is composed of gene expression of drug treated one and disease one. At first, we try to prepare two omics profiles, expDrug and expDisease, that represent gene expression profiles of cell lines treated by various drugs and a cell line of diseas by
+``` {r}
+dummy <- prepareexpDrugandDisease()
+expDrug <- dummy[[1]]
+expDisease <- dummy[[2]]
+```
+then prepare a tensor as
+```{r}
+require(Biobase)
+Z <- prepareTensorfromMatrix(exprs(expDrug[seq_len(1000),seq_len(100)]),exprs(expDisease[seq_len(1000),seq_len(100)]))
+sample<- outer(colnames(expDrug)[seq_len(100)],colnames(expDisease)[seq_len(100)],function(x,y){paste(x,y)})
+require(TDbasedUFE)
+Z <- PrepareSummarizedExperimentTensor(sample=sample,feature=rownames(expDrug)[seq_len(1000)],value=Z)
+```
+then HOSVD is applied to a tensor as
+``` {r}
+HOSVD <- computeHosvd(Z)
+```
+Then try to singular value vectors attributed to objects as
+``` {r}
+cond <- list(NULL,rep(1:2,each=50),rep(1:2,each=50))
+```
+When you try this vignettes, you can do it interactive mode as
+```
+input_all <- selectSingularValueVectorLarge(HOSVD,cond)
+'''
+but in order to place this vigettes in Bioconductor that does not allow interactive input we do here as
+```{r}
+input_all <- selectSingularValueVectorLarge(HOSVD,cond,input_all=c(2,1))
+```
