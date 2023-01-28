@@ -9,7 +9,6 @@
 prepareexpDrugandDisease <- function(){
     dir <- system.file("extdata", package="TDbasedUFEadv")
     TCGA <- read.csv(file.path(dir,"drug_response.txt"), sep="\t")
-    #TCGA <- read.csv("./extdata/drug_response.txt",sep="\t")
     require(RTCGA.rnaseq)
     TCGAdb <- unique(TCGA[,1])
     TCGAdb <- TCGAdb[-16]

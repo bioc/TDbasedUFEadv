@@ -1,6 +1,7 @@
 ---
 title: "QuickStart"
 output: rmarkdown::html_vignette
+bibliography: references.bib
 vignette: >
   %\VignetteIndexEntry{QuickStart}
   %\VignetteEngine{knitr::rmarkdown}
@@ -28,27 +29,41 @@ dummy <- prepareexpDrugandDisease()
 expDrug <- dummy[[1]]
 expDisease <- dummy[[2]]
 ```
-then prepare a tensor as
+expDrug is taken from RTCGA packge and those associated with Drugs based upon [@Ding2016].  Those files are listed in drug_response.txt included in Clinical drug responses at http://lifeome.net/supp/drug_response/.
+expDisease is composed of files in BRCA.rnaseq, but not included in expDrug (For more details, see source code of prepareexpDrugandDisease).
+Then prepare a tensor as
 ```{r}
 require(Biobase)
-Z <- prepareTensorfromMatrix(exprs(expDrug[seq_len(100),seq_len(100)]),exprs(expDisease[seq_len(100),seq_len(100)]))
+Z <- prepareTensorfromMatrix(exprs(expDrug[seq_len(200),seq_len(100)]),exprs(expDisease[seq_len(200),seq_len(100)]))
 sample<- outer(colnames(expDrug)[seq_len(100)],colnames(expDisease)[seq_len(100)],function(x,y){paste(x,y)})
 require(TDbasedUFE)
-Z <- PrepareSummarizedExperimentTensor(sample=sample,feature=rownames(expDrug)[seq_len(100)],value=Z)
+Z <- PrepareSummarizedExperimentTensor(sample=sample,feature=rownames(expDrug)[seq_len(200)],value=Z)
 ```
+In the above, sample are pairs of file IDs taken from expDrug and expDisease. 
 then HOSVD is applied to a tensor as
 ``` {r}
 HOSVD <- computeHosvd(Z)
 ```
-Then try to singular value vectors attributed to objects as
+Here we tries to find if Cisplatin causes distince expression between two 
+classes of BRCA (in this case, there are no meaning of two classes).
 ``` {r}
-cond <- list(NULL,rep(1:2,each=50),rep(1:2,each=50))
+Cond <- prepareCondDrugandDisease(expDrug)
+cond <- list(NULL,Cond[,colnames="Cisplatin"][seq_len(100)],rep(1:2,each=50))
 ```
+Then try to select singular value vectors attributed to objects.
 When you try this vignettes, you can do it interactive mode as
 ```
 input_all <- selectSingularValueVectorLarge(HOSVD,cond)
-'''
+```
 but in order to place this vigettes in Bioconductor that does not allow interactive input we do here as
 ```{r}
-input_all <- selectSingularValueVectorLarge(HOSVD,cond,input_all=c(2,1))
+input_all <- selectSingularValueVectorLarge(HOSVD,cond,input_all=c(2,9))
+```
+Next we select which genes' epxression is alterd by Cisplatin.
+```{r}
+index <- selectFeature(HOSVD,input_all,de=0.05)
+```
+List the genes selected.
+```{r}
+head(tableFeatures(Z,index))
 ```
