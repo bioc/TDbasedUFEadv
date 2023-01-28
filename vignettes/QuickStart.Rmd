@@ -31,10 +31,10 @@ expDisease <- dummy[[2]]
 then prepare a tensor as
 ```{r}
 require(Biobase)
-Z <- prepareTensorfromMatrix(exprs(expDrug[seq_len(1000),seq_len(100)]),exprs(expDisease[seq_len(1000),seq_len(100)]))
+Z <- prepareTensorfromMatrix(exprs(expDrug[seq_len(100),seq_len(100)]),exprs(expDisease[seq_len(100),seq_len(100)]))
 sample<- outer(colnames(expDrug)[seq_len(100)],colnames(expDisease)[seq_len(100)],function(x,y){paste(x,y)})
 require(TDbasedUFE)
-Z <- PrepareSummarizedExperimentTensor(sample=sample,feature=rownames(expDrug)[seq_len(1000)],value=Z)
+Z <- PrepareSummarizedExperimentTensor(sample=sample,feature=rownames(expDrug)[seq_len(100)],value=Z)
 ```
 then HOSVD is applied to a tensor as
 ``` {r}
