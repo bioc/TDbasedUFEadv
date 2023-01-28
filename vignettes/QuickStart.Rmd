@@ -44,7 +44,7 @@ then HOSVD is applied to a tensor as
 ``` {r}
 HOSVD <- computeHosvd(Z)
 ```
-Here we tries to find if Cisplatin causes distince expression between two 
+Here we tries to find if Cisplatin causes distinct expression between two 
 classes of BRCA (in this case, there are no meaning of two classes).
 ``` {r}
 Cond <- prepareCondDrugandDisease(expDrug)
@@ -55,15 +55,16 @@ When you try this vignettes, you can do it interactive mode as
 ```
 input_all <- selectSingularValueVectorLarge(HOSVD,cond)
 ```
-but in order to place this vigettes in Bioconductor that does not allow interactive input we do here as
+but in order to place this vignettes in Bioconductor that does not allow interactive input we do here as
 ```{r}
 input_all <- selectSingularValueVectorLarge(HOSVD,cond,input_all=c(2,9))
 ```
-Next we select which genes' epxression is alterd by Cisplatin.
+Next we select which genes' expression is altered by Cisplatin.
 ```{r}
 index <- selectFeature(HOSVD,input_all,de=0.05)
 ```
-List the genes selected.
+
+You might need to specify suitable value for de which is initial value of standard deviation. Finally, list the genes selected as those associated with distinct expression.
 ```{r}
 head(tableFeatures(Z,index))
 ```
