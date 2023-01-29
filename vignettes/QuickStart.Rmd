@@ -192,7 +192,7 @@ table(index_all[[1]]$index,index_all[[2]]$index)
 
 Confusion matrix of features selceted between expDrug and expDisease.
 
-# Multiomicd analysis
+# Multiomics analysis
 The above procedure can be used when two omics data must be integgrated.
 Prepare data set as
 ```{r}
@@ -206,16 +206,32 @@ the resulting Z has samples as features and features as samples, respectively.
 ```{r}
 Z <- prepareTensorfromMatrix(t(CLL_data$Drugs[seq_len(200),seq_len(100)]),
 t(CLL_data$Methylation[seq_len(200),seq_len(100)]))
-sample<- outer(rownames(CLL_data$Drugs)[seq_len(200)],
-rownames(CLL_data$Methylation)[seq_len(200)],function(x,y){paste(x,y)})
 require(TDbasedUFE)
-Z <- PrepareSummarizedExperimentTensor(sample=sample,
-feature=colnames(CLL_data$Drugs)[seq_len(100)],value=Z)
+Z <- PrepareSummarizedExperimentTensorRect(
+    sample=colnames(CLL_data$Drugs)[seq_len(100)],
+    feature=list(Drugs=rownames(CLL_data$Drugs)[seq_len(200)],
+                 Methylatiion=rownames(CLL_data$Methylation)[seq_len(200)]),
+    sampleData=list(CLL_covariates[,1][seq_len(100)]),
+    value=Z)
 ```
 HOSVD was applied to Z as
 ```{r}
 HOSVD <- computeHosvd(Z)
 ```
+```{r}
+cond <- list(attr(Z,"sampleData")[[1]],NULL,NULL)
+```
+```
+index_all <- selectFeatureTransRect(HOSVD,cond,de=c(0.01,0.01))
+```
+```{r}
+index_all <- selectFeatureTransRect(HOSVD,cond,de=c(0.01,0.01),input_all=3)
+```
+```{r}
+head(tableFeaturesSquare(Z,index_all,1))
+head(tableFeaturesSquare(Z,index_all,2))
+```
+
 ```{r}
 sessionInfo()
 ```

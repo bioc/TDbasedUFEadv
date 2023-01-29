@@ -15,8 +15,6 @@ computeSVD(matrix1, matrix2, dim = 10, scale = TRUE)
 \item{dim}{The number of singular value vectors to be computed}
 
 \item{scale}{If matrix should be scaled or not}
-
-\item{Z}{Input a tensor}
 }
 \value{
 Singular value vectors attributed to two sets of objects associated 
