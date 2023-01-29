@@ -68,3 +68,33 @@ You might need to specify suitable value for de which is initial value of standa
 ```{r}
 head(tableFeatures(Z,index))
 ```
+
+In the case that  there are large number of features, it is impossible to apply HOSVD to a tensor. In this case, we apply SVD instead of HOSVD to matrix generated from a tensor.
+``` {r}
+SVD <- computeSVD(exprs(expDrug),exprs(expDisease))
+Z <- t(exprs(expDrug)) %*% exprs(expDisease)
+sample<- outer(colnames(expDrug),colnames(expDisease),
+               function(x,y){paste(x,y)})
+Z <- PrepareSummarizedExperimentTensor(sample=sample,
+            feature=rownames(expDrug),value=Z)
+```
+Select sigular value vectors attributed to drugs and cell lines then identify features associated e with altered expression by treatment of Cisplatin as well as ditinction etween two classes.
+``` {r}
+cond <- list(NULL,Cond[,colnames="Cisplatin"],rep(1:2,each=dim(HOSVD$U[[3]])[1]/2))
+```
+For interactive mode, one should do
+````
+index_all <- selectFeatureRect(SVD,cond,de=c(0.01,0.01))
+```
+but since packege does not allow interactive mode,  in this vignettes, we place the following.
+```{r}
+index_all <- selectFeatureRect(SVD,cond,de=c(0.01,0.01),input_all=3) 
+```
+```{r}
+head(tableFeatures(Z,index_all[[1]]))
+head(tableFeatures(Z,index_all[[2]]))
+```
+```{r}
+table(index_all[[1]]$index,index_all[[2]]$index)
+```
+
