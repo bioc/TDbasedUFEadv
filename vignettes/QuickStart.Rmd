@@ -224,11 +224,24 @@ HOSVD <- computeHosvd(Z)
 ```{r}
 cond <- list(attr(Z,"sampleData")[[1]],NULL,NULL)
 ```
+Condition is distinction between male and female 
+(see QucikStart in TDbasedUFE package).
+Then try to find singular value vectors distict between  male and female 
+in interactive mode.
 ```
 index_all <- selectFeatureTransRect(HOSVD,cond,de=c(0.01,0.01))
 ```
+Although we do not repeat the process select the eighth one as shown below
+![The eighth singular value vector](./fig9.jpg)
+
+![Left: Dependence of standard deviation of histogram of P-values. Right: Histogram of 1-P, for ditinct expression between cell lines treated with Cisplatin and other cell lines, i.e. for expDrug.](./fig10.jpg)
+
+![Left: Dependence of standard deviation of histogram of P-values. Right: Histogram of 1-P, for ditinct expression between cell lines treated with Cisplatin and other cell lines, i.e. for expDrug.](./fig11.jpg)
+
+Since package does not allow interactive mode, we place here batch 
+mode as follows.
 ```{r}
-index_all <- selectFeatureTransRect(HOSVD,cond,de=c(0.01,0.01),input_all=3)
+index_all <- selectFeatureTransRect(HOSVD,cond,de=c(0.01,0.01),input_all=8)
 ```
 ```{r}
 head(tableFeaturesSquare(Z,index_all,1))

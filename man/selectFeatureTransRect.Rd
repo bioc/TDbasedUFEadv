@@ -37,6 +37,7 @@ Title Select features for a tensor generated from two matricies that
  share samples.
 }
 \examples{
+require(TDbasedUFE)
 matrix1 <- matrix(runif(10000),200) #row features, column samples
 matrix2 <- matrix(runif(20000),400) #row features, column samples
 Z <- prepareTensorfromMatrix(t(matrix1),t(matrix2))
