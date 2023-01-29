@@ -1,12 +1,22 @@
 ---
 title: "QuickStart"
-output: rmarkdown::html_vignette
+author:
+- name: Y-h. Taguchi
+  affiliation:  Department of Physics, Chuo University, Tokyo 112-8551, Japan
+  email: tag@granular.com
+output:   
+    BiocStyle::html_document:
+    toc: true
 bibliography: references.bib
 vignette: >
   %\VignetteIndexEntry{QuickStart}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+```{r style, echo = FALSE, results = 'asis'}
+BiocStyle::markdown()
+```
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -40,12 +50,14 @@ require(TDbasedUFE)
 Z <- PrepareSummarizedExperimentTensor(sample=sample,feature=rownames(expDrug)[seq_len(200)],value=Z)
 ```
 In the above, sample are pairs of file IDs taken from expDrug and expDisease. 
-then HOSVD is applied to a tensor as
+Since full data cannot be treated because of memory ristriction, we ristricted the first two hundred features and the first one hundred samples, respectively (In the below, we will introduce how to deal with the full datasets).
+
+Then HOSVD is applied to a tensor as
 ``` {r}
 HOSVD <- computeHosvd(Z)
 ```
-Here we tries to find if Cisplatin causes distinct expression between two 
-classes of BRCA (in this case, there are no meaning of two classes).
+Here we tries to find if Cisplatin causes distinct expression  (0: cell lines treated with drugs otherthan Cisplatin, 1: cell lines treated with Cisplatin) and those between two 
+classes (1 vs 2) of BRCA (in this case, there are no meaning of two classes) within top one hudrder samples.
 ``` {r}
 Cond <- prepareCondDrugandDisease(expDrug)
 cond <- list(NULL,Cond[,colnames="Cisplatin"][seq_len(100)],rep(1:2,each=50))
@@ -55,22 +67,80 @@ When you try this vignettes, you can do it interactive mode as
 ```
 input_all <- selectSingularValueVectorLarge(HOSVD,cond)
 ```
-but in order to place this vignettes in Bioconductor that does not allow interactive input we do here as
-```{r}
+Then we can see the following plot
+
+![First view](./fig1.jpg)
+
+
+and a menu
+```
+1: NEXT
+2: PREV
+3: SELCT
+```
+It represents a distinction between cell lines treated with Cisplatin (1) and others (0). Since these are not associated with clear distinction, we need to see next singular value vector. Then type 1 and press enter. Then we get this plot
+
+![Second view](./fig2.jpg)
+
+and menu
+```
+1: NEXT
+2: PREV
+3: SELCT
+```
+Since this one is somewhat distinct between 0 (cell lines treatedwith drugs other than Cisplatin) and 1 (those treated with Cisplatin), we decide to select this one. Then type 3 and press enter.
+
+Then we can see the following plot 
+
+![Third view](./fig3.jpg)
+
+and  a menu
+
+```
+1: NEXT
+2: PREV
+3: SELCT
+```
+
+This represent a distinction between two classes of BRCA cell lines (1 vs 2). Since this one does not reprsetn distinction we continue to type 1 and pres enter unril we can see the nineth one as
+
+![Fourth view](./fig4.jpg)
+
+Since this one represents the distinction, we decied to select this one and type 3 and press enter in the following menu.
+
+```
+
+1: NEXT
+2: PREV
+3: SELCT
+```
+
+In order to place this vignettes in Bioconductor that does not allow interactive input we write this function as
+```{r, fig.keep = "none"}
 input_all <- selectSingularValueVectorLarge(HOSVD,cond,input_all=c(2,9))
 ```
+that works in batch mode.
+
 Next we select which genes' expression is altered by Cisplatin.
-```{r}
+```{r, fig.keep = "none"}
 index <- selectFeature(HOSVD,input_all,de=0.05)
 ```
 
-You might need to specify suitable value for de which is initial value of standard deviation. Finally, list the genes selected as those associated with distinct expression.
+You might need to specify suitable value for de which is initial value of standard deviation. 
+
+The we get the following plot.
+
+![Left: Dependence of standard deviation of histogram of P-values. Right: Histogram of 1-P. ](./fig5.jpg)
+
+Finally, list the genes selected as those associated with distinct expression.
 ```{r}
 head(tableFeatures(Z,index))
 ```
 
-In the case that  there are large number of features, it is impossible to apply HOSVD to a tensor. In this case, we apply SVD instead of HOSVD to matrix generated from a tensor.
+In the case that  there are large number of features, it is impossible to apply HOSVD to a tensor. In this case, we apply SVD instead of HOSVD to matrix generated from a tensor as follows.
+In contrast to the above where only top two hudred features and top one hundred samples are included, the following one include all features and samples since it can save require memory because partial summation of features.
 ``` {r}
+library(Biobase)
 SVD <- computeSVD(exprs(expDrug),exprs(expDisease))
 Z <- t(exprs(expDrug)) %*% exprs(expDisease)
 sample<- outer(colnames(expDrug),colnames(expDisease),
@@ -78,23 +148,50 @@ sample<- outer(colnames(expDrug),colnames(expDisease),
 Z <- PrepareSummarizedExperimentTensor(sample=sample,
             feature=rownames(expDrug),value=Z)
 ```
-Select sigular value vectors attributed to drugs and cell lines then identify features associated e with altered expression by treatment of Cisplatin as well as ditinction etween two classes.
+
+Nest select sigular value vectors attributed to drugs and cell lines then identify features associated e with altered expression by treatment of Cisplatin as well as ditinction etween two classes. Again, it included all samples for expDrug and expDisease.
 ``` {r}
-cond <- list(NULL,Cond[,colnames="Cisplatin"],rep(1:2,each=dim(HOSVD$U[[3]])[1]/2))
+cond <- list(NULL,Cond[,colnames="Cisplatin"],rep(1:2,each=dim(SVD$SVD$v)[1]/2))
 ```
 For interactive mode, one should do
 ````
 index_all <- selectFeatureRect(SVD,cond,de=c(0.01,0.01))
 ```
-but since packege does not allow interactive mode,  in this vignettes, we place the following.
+Again you need to select suitable de by trials and errors.
+
+Here we dot repear whole process, but show the third one
+
+![Third singular value vector. Left: for expDrug, right; for expDisease](./fig6.jpg)
+
+and type 3 and press enter to select this one.
+
+Then we can see the plot
+
+![Left: Dependence of standard deviation of histogram of P-values. Right: Histogram of 1-P, for ditinct expression between cell lines treated with Cisplatin and other cell lines, i.e. for expDrug.](./fig7.jpg)
+
+Press enter to forward and we can see 
+
+![Left: Dependence of standard deviation of histogram of P-values. Right: Histogram of 1-P, for ditinct expression between two classes of BRCA cell lines, i.e. for expDisease.](./fig8.jpg)
+then pree enter to finilze the feature selection.
+
+Since Bioconductor does not allow interactive mode,  in this vignettes, we place the following.
 ```{r}
 index_all <- selectFeatureRect(SVD,cond,de=c(0.01,0.01),input_all=3) 
 ```
+Then you can see selected features as 
 ```{r}
 head(tableFeatures(Z,index_all[[1]]))
 head(tableFeatures(Z,index_all[[2]]))
 ```
+The upper one is  for ditinct expression between cell lines treated with Cisplatin and other cell lines and the lower one is for ditinct expression between two classes of BRCA cell lines.
+
+Although they are highly coincident, not fully same ones (Row: expDrug, columen:expDisease).
 ```{r}
 table(index_all[[1]]$index,index_all[[2]]$index)
 ```
 
+Confusion matrix of features selceted between expDrug and expDisease.
+
+```{r}
+sessionInfo()
+```

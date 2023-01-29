@@ -10,8 +10,7 @@ selectFeatureRect(
   de = rep(1e-04, 2),
   p0 = 0.01,
   breaks = 100,
-  input_all = NULL,
-  interact = FALSE
+  input_all = NULL
 )
 }
 \arguments{
@@ -27,8 +26,6 @@ selectFeatureRect(
 
 \item{input_all}{The ID of selected singular value vectors. If it is null, 
 interactive mode is activated.}
-
-\item{interact}{Inteactive mode is activated or not}
 }
 \value{
 List of lists that inlcudes P-vales as well as if idnvidual features selected.
@@ -42,5 +39,6 @@ matrix1 <- matrix(runif(2000),200)
 matrix2 <- matrix(runif(4000),200)
 SVD <- computeSVD(matrix1,matrix2)
 index_all <- selectFeatureRect(SVD,
-list(NULL,rep(1:2,each=5),rep(1:2,each=10)),de=rep(0.5,2))
+list(NULL,rep(1:2,each=5),rep(1:2,each=10)),de=rep(0.5,2),
+input_all=1)
 }

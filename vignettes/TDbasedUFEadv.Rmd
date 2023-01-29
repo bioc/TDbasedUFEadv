@@ -1,11 +1,21 @@
 ---
 title: "TDbasedUFEadv"
-output: rmarkdown::html_vignette
+author:
+- name: Y-h. Taguchi
+  affiliation:  Department of Physics, Chuo University, Tokyo 112-8551, Japan
+  email: tag@granular.com
+output:   
+    BiocStyle::html_document:
+    toc: true
 vignette: >
   %\VignetteIndexEntry{TDbasedUFEadv}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+```{r style, echo = FALSE, results = 'asis'}
+BiocStyle::markdown()
+```
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -41,3 +51,23 @@ x_{ijk} = \sum_{\ell_1} \sum_{\ell_2} \sum_{ell_3} G(\ell_1 \ell_2 \ell_3) u_{\e
 $$
 After that we can follow the standard procedure to select features $i$s associated with the desirred properties reprented by the selected signular value vectors, $u_{\ell_2 j}$ and $u_{\ell_3 k}$, arrtibuted to ojjects, $j$s and $k$s.
 
+In the above, we dealt with full tensor. It is often difficlut to treat full tensor, since it is as large as $N \times M times K$. In this case, we can take the alternative approach. In order that we define reduced matix with taking partial sum
+$$
+x_{jk} = \sum_i x_{ijk}
+$$
+and apply SVD to $x_{jk}$ as
+$$
+x_{jk} = \sum_\ell \lambda_\ell u_{\ell j} v_{\ell k}
+$$
+and sigular value vectors attributed to samples as
+$$
+u^{(j)}_{\ell i} = \sum_j u_{\ell j} x_{ij} \\
+u^{(k)}_{\ell k} = \sum_k v_{\ell k} x_{ik}
+$$
+In this case, signular value vectors are attributed separately to features associated with objects $j$ and $k$, respectively.
+
+The feature selection can be done using these singular value vectors associated with selected sigular value vectors attribuited to samples, $j$ and $k$.
+
+```{r}
+sessionInfo()
+```

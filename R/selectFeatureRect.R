@@ -7,7 +7,6 @@
 #' @param breaks Number of bins of hitogram of P-values
 #' @param input_all The ID of selected singular value vectors. If it is null, 
 #' interactive mode is activated.
-#' @param interact  Inteactive mode is activated or not
 #'
 #' @return List of lists that inlcudes P-vales as well as if idnvidual features selected.
 #' @export
@@ -18,10 +17,12 @@
 #' matrix2 <- matrix(runif(4000),200)
 #' SVD <- computeSVD(matrix1,matrix2)
 #' index_all <- selectFeatureRect(SVD,
-#' list(NULL,rep(1:2,each=5),rep(1:2,each=10)),de=rep(0.5,2))
+#' list(NULL,rep(1:2,each=5),rep(1:2,each=10)),de=rep(0.5,2),
+#' input_all=1)
 selectFeatureRect <- function(SVD,cond,de=rep(1e-4,2),p0=0.01,
-                              breaks=100,input_all=NULL,interact=FALSE)
+                              breaks=100,input_all=NULL)
     {
+    interact=FALSE
     if(is.null(input_all))
         {
             interact=TRUE
@@ -60,6 +61,7 @@ selectFeatureRect <- function(SVD,cond,de=rep(1e-4,2),p0=0.01,
             sd1 <- seq(0.1*sd,2*sd,by=0.1*sd)
             th0 <- apply(matrix(sd1,ncol=1),1,function(x){th(x,breaks,p0)})
             P2 <- pchisq((u/sd)^2,1,lower.tail=FALSE)
+            plot.new()
             par(mfrow=c(1,2))
             plot(sd1,th0,type="o")
             arrows(sd,max(th0),sd,min(th0),col=2)

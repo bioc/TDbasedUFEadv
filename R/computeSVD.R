@@ -1,7 +1,6 @@
 #' Title Perform SVD toward reduced matrix generated from a tensor with 
 #' partial summation
 #'
-#' @param Z Input a tensor
 #' @param matrix1 The first original matrix that generates a tensor
 #' @param matrix2 The second original matrix that generates a tensor
 #' @param dim  The number of singular value vectors to be computed
