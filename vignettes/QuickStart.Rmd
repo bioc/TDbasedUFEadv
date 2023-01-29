@@ -200,24 +200,27 @@ require(MOFAdata)
 data("CLL_data")
 data("CLL_covariates")
 ```
+
 (see vignettes QuickStart in TDbasedUFE for more details about this data set).
 Generate tensor from matrix as in the above, but since not features but samples are saured between two matrices,
 the resulting Z has samples as features and features as samples, respectively.
 ```{r}
-Z <- prepareTensorfromMatrix(t(CLL_data$Drugs[seq_len(200),seq_len(100)]),
-t(CLL_data$Methylation[seq_len(200),seq_len(100)]))
+Z <- prepareTensorfromMatrix(t(CLL_data$Drugs[seq_len(200),seq_len(50)]),
+t(CLL_data$Methylation[seq_len(200),seq_len(50)]))
 require(TDbasedUFE)
 Z <- PrepareSummarizedExperimentTensorRect(
-    sample=colnames(CLL_data$Drugs)[seq_len(100)],
+    sample=colnames(CLL_data$Drugs)[seq_len(50)],
     feature=list(Drugs=rownames(CLL_data$Drugs)[seq_len(200)],
                  Methylatiion=rownames(CLL_data$Methylation)[seq_len(200)]),
-    sampleData=list(CLL_covariates[,1][seq_len(100)]),
+    sampleData=list(CLL_covariates[,1][seq_len(50)]),
     value=Z)
 ```
+
 HOSVD was applied to Z as
 ```{r}
 HOSVD <- computeHosvd(Z)
 ```
+
 ```{r}
 cond <- list(attr(Z,"sampleData")[[1]],NULL,NULL)
 ```
@@ -231,6 +234,9 @@ index_all <- selectFeatureTransRect(HOSVD,cond,de=c(0.01,0.01),input_all=3)
 head(tableFeaturesSquare(Z,index_all,1))
 head(tableFeaturesSquare(Z,index_all,2))
 ```
+
+
+
 
 ```{r}
 sessionInfo()
