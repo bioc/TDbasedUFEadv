@@ -192,6 +192,30 @@ table(index_all[[1]]$index,index_all[[2]]$index)
 
 Confusion matrix of features selceted between expDrug and expDisease.
 
+# Multiomicd analysis
+The above procedure can be used when two omics data must be integgrated.
+Prepare data set as
+```{r}
+require(MOFAdata)
+data("CLL_data")
+data("CLL_covariates")
+```
+(see vignettes QuickStart in TDbasedUFE for more details about this data set).
+Generate tensor from matrix as in the above, but since not features but samples are saured between two matrices,
+the resulting Z has samples as features and features as samples, respectively.
+```{r}
+Z <- prepareTensorfromMatrix(t(CLL_data$Drugs[seq_len(200),seq_len(100)]),
+t(CLL_data$Methylation[seq_len(200),seq_len(100)]))
+sample<- outer(rownames(CLL_data$Drugs)[seq_len(200)],
+rownames(CLL_data$Methylation)[seq_len(200)],function(x,y){paste(x,y)})
+require(TDbasedUFE)
+Z <- PrepareSummarizedExperimentTensor(sample=sample,
+feature=colnames(CLL_data$Drugs)[seq_len(100)],value=Z)
+```
+HOSVD was applied to Z as
+```{r}
+HOSVD <- computeHosvd(Z)
+```
 ```{r}
 sessionInfo()
 ```
