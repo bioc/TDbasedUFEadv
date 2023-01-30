@@ -24,3 +24,13 @@ It is an advanced version of
 [TDbasedUFE](https://github.com/tagtag/TDbasedUFE/releases/tag/v0.1.0).
 Thus people who would like to use TDbasedUFEadv, please first install
 and check TDbasedUFE.
+
+## Vignettes
+
+How to use it
+
+vignette(“QuickStart”)
+
+For more theoretical background
+
+vignette(“TDbasedUFE”)
