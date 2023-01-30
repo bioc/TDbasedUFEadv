@@ -39,6 +39,6 @@ matrix1 <- matrix(runif(2000),200)
 matrix2 <- matrix(runif(4000),200)
 SVD <- computeSVD(matrix1,matrix2)
 index_all <- selectFeatureRect(SVD,
-list(NULL,rep(1:2,each=5),rep(1:2,each=10)),de=rep(0.5,2),
+list(NULL,rep(seq_len(2),each=5),rep(seq_len(2),each=10)),de=rep(0.5,2),
 input_all=1)
 }

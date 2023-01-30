@@ -1,7 +1,35 @@
 test_that("multiplication works", {
   expect_equal(2 * 2, 4)
 })
-dummy <- prepareexpDrugandDisease()
+require(RTCGA.rnaseq)
+LIST <- list(ACC.rnaseq,
+             BLCA.rnaseq,
+             BRCA.rnaseq,
+             CESC.rnaseq,
+             COAD.rnaseq,
+             ESCA.rnaseq,
+             GBM.rnaseq,
+             HNSC.rnaseq,
+             KICH.rnaseq,
+             KIRC.rnaseq,
+             KIRP.rnaseq,
+             LGG.rnaseq,
+             LIHC.rnaseq,
+             LUAD.rnaseq,
+             LUSC.rnaseq,
+             OV.rnaseq,
+             PAAD.rnaseq,
+             PCPG.rnaseq,
+             PRAD.rnaseq,
+             READ.rnaseq,
+             SARC.rnaseq,
+             SKCM.rnaseq,
+             STAD.rnaseq,
+             TGCT.rnaseq,
+             THCA.rnaseq,
+             UCEC.rnaseq,
+             UCS.rnaseq)
+dummy <- prepareexpDrugandDisease(LIST)
 expDrug <- dummy[[1]]
 expDisease <- dummy[[2]]
 require(Biobase)
