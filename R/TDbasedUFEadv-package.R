@@ -8,6 +8,8 @@
 #' @import RTCGA
 #' @import BiocStyle
 #' @import MOFAdata
+#' @import TDbasedUFE
+#' @import Biobase
 #' @importFrom GenomicRanges GRanges
 #' @importFrom rTensor hosvd as.tensor
 #' @importFrom stats pchisq p.adjust optim

@@ -18,32 +18,28 @@
 #' matrix1 <- matrix(runif(10000),200) #row features, column samples
 #' matrix2 <- matrix(runif(20000),400) #row features, column samples
 #' Z <- prepareTensorfromMatrix(t(matrix1),t(matrix2))
-#' Z <- PrepareSummarizedExperimentTensorRect(sample=as.character(1:50),
-#' feature=list(as.character(1:200),as.character(1:400)),
-#' sampleData=list(rep(1:2,each=25)),value=Z)
+#' Z <- PrepareSummarizedExperimentTensorRect(sample=as.character(seq_len(50)),
+#' feature=list(as.character(seq_len(200)),as.character(seq_len(400))),
+#' sampleData=list(rep(seq_len(2),each=25)),value=Z)
 #' HOSVD <- computeHosvd(Z)
 #' cond <- list(attr(Z,"sampleData")[[1]],NULL,NULL)
 #' index_all <- selectFeatureTransRect(HOSVD,cond,de=c(0.01,0.01),input_all=2)
 selectFeatureTransRect <- function(HOSVD,cond,de=rep(1e-4,2),p0=0.01,
                                    breaks=100,input_all=NULL){
     {
-        interact=FALSE
+        interact<-FALSE
         if(is.null(input_all))
         {
-            interact=TRUE
+            interact<-TRUE
             j<-1
             while(j %in% seq_len(dim(HOSVD$U[[1]])[2]))
             {
                 boxplot(HOSVD$U[[1]][,j]~cond[[1]],main=j)
                 abline(0,0,col=2,lty=2)
                 input <- menu(c("NEXT","PREV","SELCT"))
-                if (input==2){
-                    if (j!=1){j<-j-1}
-                } else if (input==3){
-                    break
-                } else {
-                    if (j<dim(HOSVD$U[[1]])[2])j<-j+1
-                }
+                if (input==2){if (j!=1){j<-j-1}} 
+                else if (input==3){break} 
+                else {if (j<dim(HOSVD$U[[1]])[2])j<-j+1}
             }
             input_all <- j
         } 
@@ -68,10 +64,7 @@ selectFeatureTransRect <- function(HOSVD,cond,de=rep(1e-4,2),p0=0.01,
             arrows(sd,max(th0),sd,min(th0),col=2)
             hist(1-P2,breaks=breaks)
             par(mfrow=c(1,1))
-            if (interact)
-            {
-                readline("Press Enter to proceed:")
-            }
+            if (interact) readline("Press Enter to proceed:")
             index <- p.adjust(P2,"BH")<p0
             index_all[[i]] <- list(index=index,p.value=P2)
         }

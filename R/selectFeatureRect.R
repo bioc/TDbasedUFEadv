@@ -8,7 +8,8 @@
 #' @param input_all The ID of selected singular value vectors. If it is null, 
 #' interactive mode is activated.
 #'
-#' @return List of lists that inlcudes P-vales as well as if idnvidual features selected.
+#' @return List of lists that inlcudes P-vales as well as if individual
+#'  features selected.
 #' @export
 #'
 #' @examples
@@ -17,15 +18,15 @@
 #' matrix2 <- matrix(runif(4000),200)
 #' SVD <- computeSVD(matrix1,matrix2)
 #' index_all <- selectFeatureRect(SVD,
-#' list(NULL,rep(1:2,each=5),rep(1:2,each=10)),de=rep(0.5,2),
+#' list(NULL,rep(seq_len(2),each=5),rep(seq_len(2),each=10)),de=rep(0.5,2),
 #' input_all=1)
 selectFeatureRect <- function(SVD,cond,de=rep(1e-4,2),p0=0.01,
                               breaks=100,input_all=NULL)
     {
-    interact=FALSE
+    interact<-FALSE
     if(is.null(input_all))
         {
-            interact=TRUE
+            interact<-TRUE
             j<-1
             while(j %in% seq_len(dim(SVD$SVD$u)[2]))
                 {
@@ -36,13 +37,9 @@ selectFeatureRect <- function(SVD,cond,de=rep(1e-4,2),p0=0.01,
                     abline(0,0,col=2,lty=2)
                     par(mfrow=c(1,1))
                     input <- menu(c("NEXT","PREV","SELCT"))
-                    if (input==2){
-                        if (j!=1){j<-j-1}
-                    } else if (input==3){
-                       break
-                    } else {
-                       if (j<dim(SVD$SVD$u)[2])j<-j+1
-                    }
+                    if (input==2){if (j!=1){j<-j-1}}
+                    else if (input==3){ break}
+                    else { if (j<dim(SVD$SVD$u)[2])j<-j+1}
                  }
             input_all <- j
     } 

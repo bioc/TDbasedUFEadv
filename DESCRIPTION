@@ -6,7 +6,7 @@ Authors@R:
     person("Taguchi", "Y-h.", ,
     "tag@granular.com", role = c("aut", "cre"),
     comment = c(ORCID  = "0000-0003-0867-8986"))
-Description: More about what it does (maybe more than one line)
+Description: 
     This is a comprehensive package to perform
     Tensor decomposition based unsupervised feature extraction.
     It can perform unsupervised feature extraction.
@@ -20,9 +20,8 @@ biocViews:
     FeatureExtraction, 
     MethylationArray,
     SingleCell    
-License: CC0
+License: GPL-3
 Encoding: UTF-8
-LazyData: true
 Imports: 
     TDbasedUFE,
     Biobase,
@@ -33,7 +32,9 @@ Imports:
     rTensor,
     BiocStyle,
     MOFAdata,
-    methods
+    methods,
+    graphics,
+    stats
 RoxygenNote: 7.2.0
 Suggests: 
     knitr,

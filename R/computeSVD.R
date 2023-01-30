@@ -15,10 +15,12 @@
 #' matrix2 <- matrix(runif(400),20)
 #' SVD <- computeSVD(matrix1,matrix2)
 computeSVD <- function(matrix1,matrix2,dim=10,scale=TRUE){
-  Z <- t(matrix1) %*% matrix2    
-  if (scale) Z <- Z/mean(Z)
-  SVD <- svd(Z,dim,dim)
-  u<- matrix1 %*% SVD$u
-  v<- matrix2 %*% SVD$v
-  return(list(SVD=SVD,u=u,v=v))
+    matrix1[is.na(matrix1)] <-0 
+    matrix2[is.na(matrix2)] <-0 
+    Z <- t(matrix1) %*% matrix2    
+    if (scale) Z <- Z/mean(Z)
+    SVD <- svd(Z,dim,dim)
+    u<- matrix1 %*% SVD$u
+    v<- matrix2 %*% SVD$v
+    return(list(SVD=SVD,u=u,v=v))
 }
