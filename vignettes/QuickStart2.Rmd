@@ -27,6 +27,7 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(TDbasedUFEadv)
+library(TDbasedUFE)
 ```
 
 # Integrated analysis of multiple omics data
@@ -56,12 +57,19 @@ Next we select singular value vectors attributed to samples.
 In order to select those distinct between male (m) and female (f),
 we set conditions as
 ```{r}
-cond <- list(attr(Z,"sampleData")[[1]],attr(Z,"sampleData")[[1]],seq_len(4))
+cond <- list(NULL,attr(Z,"sampleData")[[1]],seq_len(4))
 ```
 Interacitve more can be activated as
 ```
 input_all <- selectSingularValueVectorLarge(HOSVD,cond)
 ```
+
+Although we do not intend to repeat how to use menu in interactive mode, please 
+select the 12th one and the third one shown in below. 
+
+![The 12th singular value vector attributed to samples](./fig15.jpg)
+![The first singular value vector attributed to omics](./fig16.jpg)
+
 But here in order to include TDbasedUFEadv into package, we are forced to
 execute function as bacth mode as
 ```{r}
@@ -74,16 +82,46 @@ HOSVD$U[[1]] <- HOSVD$U[[2]] #selectFeatureSquareのHOSVD$U[[1]]を[[2]]にす�
 index_all <- selectFeatureSquare(HOSVD,input_all,CLL_data,
                                  de=c(0.5,0.1,0.1,1))
 ```
+and we can see the following four plots (to proceed in an interctrive mode, simply press enter).
+
+![Left: Dependence of standard deviation of histogram of P-values. Right: Histogram of 1-P, for Drugs. ](./fig17.jpg)
+![Left: Dependence of standard deviation of histogram of P-values. Right: Histogram of 1-P, for Methylation ](./fig18.jpg)
+![Left: Dependence of standard deviation of histogram of P-values. Right: Histogram of 1-P, for mRNA ](./fig19.jpg)
+![Left: Dependence of standard deviation of histogram of P-values. Right: Histogram of 1-P, for Mutations ](./fig20.jpg)
+But packaging does not allow interactive mode, we place batch mode in this vignettes.
 
 ``` {r, fig.keep="none"}
 HOSVD$U[[1]] <- HOSVD$U[[2]] #selectFeatureSquareのHOSVD$U[[1]]を[[2]]にすればこれは不要
 index_all <- selectFeatureSquare(HOSVD,input_all,CLL_data,
                                  de=c(0.5,0.1,0.1,1),interact=FALSE)
 ```
+Finnally, we list the selected features for four omics profiles that share samples.
+
 ```{r}
 for (id in c(1:4))
 {
     attr(Z,"feature") <- rownames(CLL_data[[id]])
     print(tableFeatures(Z,index_all[[id]]))
 }
+```
+
+
+
+## When features are shared
+
+```{r}
+require(RTCGA.rnaseq)
+Multi <- list(ACC.rnaseq[seq_len(100),1+seq_len(1000)],BLCA.rnaseq[seq_len(100),1+seq_len(1000)],
+             BRCA.rnaseq[seq_len(100),1+seq_len(1000)],CESC.rnaseq[seq_len(100),1+seq_len(1000)])
+Z <- prepareTensorfromList(Multi,10)
+Z <- aperm(Z,c(2,1,3))
+Z <- PrepareSummarizedExperimentTensor(feature =colnames(ACC.rnaseq)[1+seq_len(1000)],
+                                       sample=array("",1),value=Z)
+HOSVD <- computeHosvd(Z)
+
+
+#cond <- list(c(rep(1,40),rep(2,39)),c(rep(1,213),rep(2,214)),rep(seq_len(2),each=606),c(rep(1,155),rep(2,154)))
+cond<- rep(list(rep(seq_len(2),each=50)),4)
+index <- selectFeatureProj(HOSVD,Multi,cond,de=0.01,input_all=3)
+head(tableFeatures(Z,index))
 ```
