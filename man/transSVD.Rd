@@ -2,7 +2,8 @@
 % Please edit documentation in R/transSVD.R
 \name{transSVD}
 \alias{transSVD}
-\title{Title Convert SVD to that for the case where samples are shared between two matrices}
+\title{Title Convert SVD to that for the case where 
+samples are shared between two matrices}
 \usage{
 transSVD(SVD)
 }
@@ -13,7 +14,8 @@ transSVD(SVD)
 converted SVD objects
 }
 \description{
-Title Convert SVD to that for the case where samples are shared between two matrices
+Title Convert SVD to that for the case where 
+samples are shared between two matrices
 }
 \examples{
 matrix1 <- matrix(runif(200),20)

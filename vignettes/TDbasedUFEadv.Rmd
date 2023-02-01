@@ -30,7 +30,7 @@ knitr::opts_chunk$set(
 
 # Introduction 
 
-Since TDbasedUFEadv is an extended package from TDbasedUFE, please master the 
+Since TDbasedUFEadv is an advanced package from TDbasedUFE, please master the 
 contents in TDbasedUFE prior to the trial of this package. 
 
 # Integrated analysis of two omics data sets
@@ -130,6 +130,57 @@ u_{\ell i} = \sum_j u_{\ell i} x_{ij} \\
 u_{\ell k} = \sum_j v_{\ell k} x_{kj}
 $$
 
+# Integrated analysis using projection
+
+Here we would like to propose an alternative strategy to integrate multiple 
+tensors using projection with SVD.
+
+## When samples are shared.
+
+Suppose we have multiomics data as
+$$
+x_{ijk} \in \mathbb{R}^{N_k \times M \times K}
+$$
+for $i$th feature of $j$th sample at $k$th omics data.
+
+In order to bundle them into a tensor, we applied SVD to them as
+$$
+x_{ijk} = \sum_{\ell} \lambda^{(k)}_\ell u_{\ell i_k} v^{(k)}_{\ell j}
+$$
+
+Then apply HOSVD to $v^{(k)}_{\ell j}$ as
+$$
+v^{(k)}_{\ell j} = \sum_{\ell_1} \sum_{\ell_2} \sum_{\ell_3} G(\ell_1 \ell_2 \ell_3)
+u_{\ell_1 \ell } u_{\ell_2 j} u_{\ell_3 k}
+$$
+After identifying the $u_{\ell_2j}$ and $u_{\ell_3 k}$ of interest, we can compute $u_{\ell i_k}$ as
+$$
+u_{\ell_2 i_k} = \sum_j u_{\ell_2 j} x_{i_k j k}
+$$
+Then $i_k$ can be selected as usual. 
+
+## When features are shared.
+
+Suppose we have multiple sets of samples as
+$$
+x_{ij_k k} \in \mathbb{R}^{N \times M_k \times K}
+$$
+
+In order to bundle them into a tensor, we apply SVD to $x_{i j_k k}$ as
+$$
+x_{i j_k k} = \sum_\ell \lambda^{(k)}_\ell u^{(k)}_{\ell i} u_{\ell j_k}
+$$
+HOSVD is applied to $u^{(k)}_{\ell i}$ as
+$$
+u^{(k)}_{\ell i} = \sum_{\ell_1} \sum_{\ell_2} \sum_{\ell_3}
+G(\ell_1 \ell_2 \ell_3) u_{\ell_1 \ell} u_{\ell_2 i} u_{\ell_3 k}
+$$
+$u_{\ell_2 j_k}$ is generated as
+$$
+u_{\ell_2 j_k} = \sum_i u_{\ell_2 i}x_{i j_k k}
+$$
+
+After identifying $u_{\ell_2 j_k}$s of interest, we select $i$s using $u_{\ell_2 i}$.
 
 
 ```{r}

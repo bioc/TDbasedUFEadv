@@ -365,6 +365,8 @@ between male and female.
 head(tableFeaturesSquare(Z,index_all,1))
 head(tableFeaturesSquare(Z,index_all,2))
 ```
+
+
 ```{r}
 sessionInfo()
 ```

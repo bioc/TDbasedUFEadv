@@ -28,7 +28,8 @@ selectFeatureRect(
 interactive mode is activated.}
 }
 \value{
-List of lists that inlcudes P-vales as well as if idnvidual features selected.
+List of lists that inlcudes P-vales as well as if individual
+ features selected.
 }
 \description{
 Title Select features through the selection  of singular value vectors
