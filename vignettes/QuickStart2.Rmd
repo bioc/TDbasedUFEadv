@@ -29,6 +29,14 @@ knitr::opts_chunk$set(
 library(TDbasedUFEadv)
 library(TDbasedUFE)
 ```
+# Introduction
+
+Since TDbasedUFEadv is an advanced package from TDbasedUFE, please master the
+contents in TDbasedUFE prior to the trial of this package. And this is the second QuickStart.
+Please master Quickstart before trying this one, QuickStart2. Here is a flowchart 
+how we can make ues of indvidual funcions in TDbassedUFE and TDbasedUFEadv.
+
+![Relationship among functions in TDbasedUFE and TDbasedUFEadv](./flowchart2.jpg)
 
 # Integrated analysis of multiple omics data
 
@@ -93,7 +101,7 @@ But packaging does not allow interactive mode, we place batch mode in this vigne
 ``` {r, fig.keep="none"}
 HOSVD$U[[1]] <- HOSVD$U[[2]] #selectFeatureSquareのHOSVD$U[[1]]を[[2]]にすればこれは不要
 index_all <- selectFeatureSquare(HOSVD,input_all,CLL_data,
-                                 de=c(0.5,0.1,0.1,1),interact=FALSE)
+                                 de=c(0.5,0.1,0.1,1),interact=FALSE) #Batch mode
 ```
 Finnally, we list the selected features for four omics profiles that share samples.
 
@@ -109,19 +117,44 @@ for (id in c(1:4))
 
 ## When features are shared
 
+Now we discuss what to do when multiple omics data share not samples but features.
+We prepare data set from RTCGA.rnaseq as follows, with retriieving reduced pertial sets from four ones.
 ```{r}
 require(RTCGA.rnaseq)
 Multi <- list(ACC.rnaseq[seq_len(100),1+seq_len(1000)],BLCA.rnaseq[seq_len(100),1+seq_len(1000)],
              BRCA.rnaseq[seq_len(100),1+seq_len(1000)],CESC.rnaseq[seq_len(100),1+seq_len(1000)])
+```
+Multi includes four objects, each of which is matrix that represent 100 samples (rows) and 1000 (featuers). Please note it is different from usual cases where columns and rows are features and samples, respectrively. They are marged into tensor as follows
+```{r}
 Z <- prepareTensorfromList(Multi,10)
 Z <- aperm(Z,c(2,1,3))
+```
+The function, prepareTeansorfromList which was used in the previous subsection where samples are shared, can be used as it is. However, the first and second modes of a tensor must be exchanged by aperm function for the latter analyses, because of the difference as mentioned in the above. Then tensor object associated with various information is generated as usual as follows and HOSVD was applied to it. 
+``` {r}
 Z <- PrepareSummarizedExperimentTensor(feature =colnames(ACC.rnaseq)[1+seq_len(1000)],
                                        sample=array("",1),value=Z)
 HOSVD <- computeHosvd(Z)
-
-
-#cond <- list(c(rep(1,40),rep(2,39)),c(rep(1,213),rep(2,214)),rep(seq_len(2),each=606),c(rep(1,155),rep(2,154)))
+```
+In order to see which sibgular value vectors attributed to samples are used for the selection of signular value vectors attributed to features, we need to assign sample conditions.
+Since we do not have any information about samples, we simply assume that they are devided into half and half as follows.
+```{r}
 cond<- rep(list(rep(seq_len(2),each=50)),4)
-index <- selectFeatureProj(HOSVD,Multi,cond,de=0.01,input_all=3)
+```
+Then perform this 
+```
+par(mai=c(0.1,0.2,0.2,0.2))
+index <- selectFeatureProj(HOSVD,Multi,cond,de=1e-3)
+```
+Although we do not intend to explain how to use menu interactively, 
+we select the second singular value vectors as shown in below
+
+![The second singular value vectors](./fig21.jpg)
+and we get the following plot, too.
+
+![Left: Dependence of standard deviation of histogram of P-values. Right: Histogram of 1-P](./fig22.jpg)
+Since package does not allow us to include inteartive mode, we place here batch mode as follows.
+Finally, selected feature are listed as follows.
+``` {r, fig.keep="none"}
+index <- selectFeatureProj(HOSVD,Multi,cond,de=1e-3,input_all=2) #Batch mode
 head(tableFeatures(Z,index))
 ```

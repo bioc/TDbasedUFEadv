@@ -29,13 +29,15 @@ knitr::opts_chunk$set(
 library(TDbasedUFEadv)
 ```
 # Introduction
-Since TDbasedUFEadv is an extended package from TDbasedUFE, please master the
+Since TDbasedUFEadv is an advanced package from TDbasedUFE, please master the
 contents in TDbasedUFE prior to the trial of this package. Here is a flowchart 
 how we can make ues of indvidual funcions in TDbassedUFE and TDbasedUFEadv.
 
 ![Relationship among functions in TDbasedUFE and TDbasedUFEadv](./flowchart.jpg)
 
-# Integrated Analysis of diease-drug gene expression for drug repositioning
+# Integrated anayses of two omics profiles 
+
+## When features are shared.
 
 In order to make use of TDbasedUFE for the drug riposiooning, we previously
 proposed[@Taguchi2017] the intergated analysis of two gene expression profiles, 
@@ -155,7 +157,7 @@ and  a menu
 ```
 
 This represent a distinction between two classes of BRCA cell lines (1 vs 2). 
-Since this one does not reprsetn distinction we continue to type 1 and pres 
+Since this one does not represent distinction we continue to type 1 and press 
 enter unril we can see the nineth one as
 
 ![Fourth view](./fig4.jpg)
@@ -173,7 +175,7 @@ type 3 and press enter in the following menu.
 In order to place this vignettes in Bioconductor that does not allow
 interactive input we write this function as
 ```{r, fig.keep = "none"}
-input_all <- selectSingularValueVectorLarge(HOSVD,cond,input_all=c(2,9))
+input_all <- selectSingularValueVectorLarge(HOSVD,cond,input_all=c(2,9)) #Batch mode
 ```
 that works in batch mode.
 
@@ -185,7 +187,7 @@ index <- selectFeature(HOSVD,input_all,de=0.05)
 You might need to specify suitable value for de which is initial value of
 standard deviation. 
 
-The we get the following plot.
+Then we get the following plot.
 
 ![Left: Dependence of standard deviation of histogram of P-values. Right: Histogram of 1-P. ](./fig5.jpg)
 
@@ -194,12 +196,17 @@ Finally, list the genes selected as those associated with distinct expression.
 head(tableFeatures(Z,index))
 ```
 
+The described methods were freeuently used in the studies by maintenors.
+
+### Reduction of required memory using partial summation.
+
 In the case that  there are large number of features, it is impossible to apply
-HOSVD to a tensor. In this case, we apply SVD instead of HOSVD to matrix 
+HOSVD to a full tensor (Then we have reduced the saie of tensor).
+In this case, we apply SVD instead of HOSVD to matrix 
 generated from a tensor as follows.
 In contrast to the above where only top two hudred features and top one hundred 
-samples are included, the following one include all features and samples since
-it can save require memory because partial summation of features.
+samples are included, the following one includes all features and all samples since
+it can save required memory because partial summation of features.
 ``` {r}
 library(Biobase)
 SVD <- computeSVD(exprs(expDrug),exprs(expDisease))
@@ -211,7 +218,7 @@ Z <- PrepareSummarizedExperimentTensor(sample=sample,
 ```
 
 Nest select sigular value vectors attributed to drugs and cell lines then 
-identify features associated e with altered expression by treatment of
+identify features associated with altered expression by treatment of
 Cisplatin as well as ditinction etween two classes. Again, it included 
 all samples for expDrug and expDisease.
 ``` {r}
@@ -223,25 +230,28 @@ index_all <- selectFeatureRect(SVD,cond,de=c(0.01,0.01))
 ```
 Again you need to select suitable de by trials and errors.
 
-Here we dot repear whole process, but show the third one
+Here we don't repeat whole processes, but please show the third one
 
 ![Third singular value vector. Left: for expDrug, right; for expDisease](./fig6.jpg)
 
-and type 3 and press enter to select this one.
+and type 3 to select this one and press enter.
 
 Then we can see the plot
 
 ![Left: Dependence of standard deviation of histogram of P-values. Right: Histogram of 1-P, for ditinct expression between cell lines treated with Cisplatin and other cell lines, i.e. for expDrug.](./fig7.jpg)
 
-Press enter to forward and we can see 
+Press enter again to forward and we can see 
+
 
 ![Left: Dependence of standard deviation of histogram of P-values. Right: Histogram of 1-P, for ditinct expression between two classes of BRCA cell lines, i.e. for expDisease.](./fig8.jpg)
-then pree enter to finilze the feature selection.
+
+then press enter to finialze the feature selection.
 
 Since Bioconductor does not allow interactive mode,  in this vignettes, 
 we place the following.
-```{r}
-index_all <- selectFeatureRect(SVD,cond,de=c(0.01,0.01),input_all=3) 
+```{r, fig.keep="none"}
+index_all <- selectFeatureRect(SVD,cond,de=c(0.01,0.01),
+                               input_all=3) #batch mode
 ```
 Then you can see selected features as 
 ```{r}
@@ -260,8 +270,9 @@ table(index_all[[1]]$index,index_all[[2]]$index)
 
 Confusion matrix of features selceted between expDrug and expDisease.
 
-# Multiomics analysis
-The above procedure can be used when two omics data must be integgrated.
+## When samples are shared 
+
+The above procedure can be used when two omics data that shares samples must be integrated.
 Prepare data set as
 ```{r}
 require(MOFAdata)
@@ -301,22 +312,33 @@ in interactive mode.
 ```
 index_all <- selectFeatureTransRect(HOSVD,cond,de=c(0.01,0.01))
 ```
-Although we do not repeat the process select the eighth one as shown below
+Although we do not repeat the process, please select the eighth one as shown below
+
 ![The eighth singular value vector](./fig9.jpg)
+
 
 ![Left: Dependence of standard deviation of histogram of P-values. Right: Histogram of 1-P, for ditinct expression between male and female for the DrugTreeatment.](./fig10.jpg)
 
+
+
+
 ![Left: Dependence of standard deviation of histogram of P-values. Right: Histogram of 1-P, for ditinct expression between male and female for Methylation](./fig11.jpg)
+
+
+
 
 Since package does not allow interactive mode, we place here batch 
 mode as follows.
-```{r}
-index_all <- selectFeatureTransRect(HOSVD,cond,de=c(0.01,0.01),input_all=8)
+```{r, fig.keep="none"}
+index_all <- selectFeatureTransRect(HOSVD,cond,de=c(0.01,0.01),
+                                    input_all=8) #batch mode
 ```
 ```{r}
 head(tableFeaturesSquare(Z,index_all,1))
 head(tableFeaturesSquare(Z,index_all,2))
 ```
+
+###  Reduction of required memory using partial summation.
 
 As in the case where two omics profiles share features, in the case where two
 omics data share the samples, we can also take an alternative approach where 
@@ -350,10 +372,21 @@ sixith singular value vectors which are some what distinct between male
 and female.
 
 ![The sixth singlar value vectors attributed to samples](./fig12.jpg)
+
+
+
 Pressing enter we can get these two plots as well.
 
 ![Left: Dependence of standard deviation of histogram of P-values. Right: Histogram of 1-P, for ditinct expression between male and female for the DrugTreeatment.](./fig13.jpg)
+
+
+
 ![Left: Dependence of standard deviation of histogram of P-values. Right: Histogram of 1-P, for ditinct expression between male and female for Methylation](./fig14.jpg)
+
+
+
+
+
 Since package does not allow us interactive mode, we place here bacth mode.
 ```{r, fig.keep='none'}
 index_all <- selectFeatureRect(SVD,cond,de=c(0.5,0.5),input_all=6)
