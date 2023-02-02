@@ -31,6 +31,8 @@ How to use it
 
 vignette(“QuickStart”)
 
+vignette(“QuickStart2”)
+
 For more theoretical background
 
 vignette(“TDbasedUFEadv”)

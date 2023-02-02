@@ -1,3 +1,134 @@
+
+@article{Taguchi2022, 
+year = {2022}, 
+title = {{A tensor decomposition-based integrated analysis applicable to multiple gene expression profiles without sample matching}}, 
+author = {Taguchi, Y-h and Turki, Turki}, 
+journal = {Scientific Reports}, 
+doi = {10.1038/s41598-022-25524-4}, 
+abstract = {{The integrated analysis of multiple gene expression profiles previously measured in distinct studies is problematic since missing both sample matches and common labels prevent their integration in fully data-driven, unsupervised training. In this study, we propose a strategy to enable the integration of multiple gene expression profiles among multiple independent studies with neither labeling nor sample matching using tensor decomposition unsupervised feature extraction. We apply this strategy to Alzheimer窶冱 disease (AD)-related gene expression profiles that lack precise correspondence among samples, including AD single-cell RNA sequence (scRNA-seq) data. We were able to select biologically reasonable genes using the integrated analysis. Overall, integrated gene expression profiles can function analogously to prior- and/or transfer-learning strategies in other machine-learning applications. For scRNA-seq, the proposed approach significantly reduces the required computational memory.}}, 
+pages = {21242}, 
+number = {1}, 
+volume = {12}
+}
+@Article{Taguchi2021,
+AUTHOR = {Taguchi, Y-h. and Turki, Turki},
+TITLE = {Tensor-Decomposition-Based Unsupervised Feature Extraction in Single-Cell Multiomics Data Analysis},
+JOURNAL = {Genes},
+VOLUME = {12},
+YEAR = {2021},
+NUMBER = {9},
+ARTICLE-NUMBER = {1442},
+URL = {https://www.mdpi.com/2073-4425/12/9/1442},
+PubMedID = {34573424},
+ISSN = {2073-4425},
+ABSTRACT = {Analysis of single-cell multiomics datasets is a novel topic and is considerably challenging because such datasets contain a large number of features with numerous missing values. In this study, we implemented a recently proposed tensor-decomposition (TD)-based unsupervised feature extraction (FE) technique to address this difficult problem. The technique can successfully integrate single-cell multiomics data composed of gene expression, DNA methylation, and accessibility. Although the last two have large dimensions, as many as ten million, containing only a few percentage of nonzero values, TD-based unsupervised FE can integrate three omics datasets without filling in missing values. Together with UMAP, which is used frequently when embedding single-cell measurements into two-dimensional space, TD-based unsupervised FE can produce two-dimensional embedding coincident with classification when integrating single-cell omics datasets. Genes selected based on TD-based unsupervised FE are also significantly related to reasonable biological roles.},
+DOI = {10.3390/genes12091442}
+}
+
+
+
+@article{Taguchi2020a, 
+year = {2020}, 
+title = {{Identification of miRNA signatures for kidney renal clear cell carcinoma using the tensor-decomposition method}}, 
+author = {Ng, Ka-Lok and Y, -H Taguchi}, 
+journal = {Scientific Reports}, 
+doi = {10.1038/s41598-020-71997-6}, 
+abstract = {{Cancer is a highly complex disease caused by multiple genetic factors. MicroRNA (miRNA) and mRNA expression profiles are useful for identifying prognostic biomarkers for cancer. Kidney renal clear cell carcinoma (KIRC), which accounts for more than 70\% of all renal malignant tumour cases, was selected for our analysis. Traditional methods of identifying cancer prognostic markers may not be accurate. Tensor decomposition (TD) is a useful method uncovering the underlying low-dimensional structures in the tensor. The TD-based unsupervised feature extraction method was applied to analyse mRNA and miRNA expression profiles. Biological annotations of the prognostic miRNAs and mRNAs were examined utilizing the pathway and oncogenic signature databases DIANA-miRPath and MSigDB. TD identified the miRNA signatures and the associated genes. These genes were found to be involved in cancer-related pathways, and 23 genes were significantly correlated with the survival of KIRC patients. We demonstrated that the results are robust and not highly dependent upon the databases we selected. Compared with traditional supervised methods tested, TD achieves much better performance in selecting prognostic miRNAs and mRNAs. These results suggest that integrated analysis using the TD-based unsupervised feature extraction technique is an effective strategy for identifying prognostic signatures in cancer studies.}}, 
+pages = {15149}, 
+number = {1}, 
+volume = {10}
+}
+@ARTICLE{Taguchi2020,
+  
+AUTHOR={Taguchi, Yh. and Turki, Turki},   
+	 
+TITLE={Universal Nature of Drug Treatment Responses in Drug-Tissue-Wide Model-Animal Experiments Using Tensor Decomposition-Based Unsupervised Feature Extraction},      
+	
+JOURNAL={Frontiers in Genetics},      
+	
+VOLUME={11},           
+	
+YEAR={2020},      
+	  
+URL={https://www.frontiersin.org/articles/10.3389/fgene.2020.00695},       
+	
+DOI={10.3389/fgene.2020.00695},      
+	
+ISSN={1664-8021},   
+   
+ABSTRACT={Gene expression profiles of tissues treated with drugs have recently been used to infer clinical outcomes. Although this method is often successful from the application point of view, gene expression altered by drugs is rarely analyzed in detail, because of the extremely large number of genes involved. Here, we applied tensor decomposition (TD)-based unsupervised feature extraction (FE) to the gene expression profiles of 24 mouse tissues treated with 15 drugs. TD-based unsupervised FE enabled identification of the common effects of 15 drugs including an interesting universal feature: these drugs affect genes in a gene-group-wide manner and were dependent on three tissue types (neuronal, muscular, and gastroenterological). For each tissue group, TD-based unsupervised FE enabled identification of a few tens to a few hundreds of genes affected by the drug treatment. These genes are distinctly expressed between drug treatments and controls as well as between tissues in individual tissue groups and other tissues. We also validated the assignment of genes to individual tissue groups using multiple enrichment analyses. We conclude that TD-based unsupervised FE is a promising method for integrated analysis of gene expression profiles from multiple tissues treated with multiple drugs in a completely unsupervised manner.}
+}
+@ARTICLE{Taguchi2019a,
+  
+AUTHOR={Taguchi, Y-h. and Turki, Turki},   
+	 
+TITLE={Tensor Decomposition-Based Unsupervised Feature Extraction Applied to Single-Cell Gene Expression Analysis},      
+	
+JOURNAL={Frontiers in Genetics},      
+	
+VOLUME={10},           
+	
+YEAR={2019},      
+	  
+URL={https://www.frontiersin.org/articles/10.3389/fgene.2019.00864},       
+	
+DOI={10.3389/fgene.2019.00864},      
+	
+ISSN={1664-8021},   
+   
+ABSTRACT={Although single-cell RNA sequencing (scRNA-seq) technology is newly invented and a promising one, but because of lack of enough information that labels individual cells, it is hard to interpret the obtained gene expression of each cell. Because of insufficient information available, unsupervised clustering, for example, t-distributed stochastic neighbor embedding and uniform manifold approximation and projection, is usually employed to obtain low-dimensional embedding that can help to understand cell窶田ell relationship. One possible drawback of this strategy is that the outcome is highly dependent upon genes selected for the usage of clustering. In order to fulfill this requirement, there are many methods that performed unsupervised gene selection. In this study, a tensor decomposition (TD)-based unsupervised feature extraction (FE) was applied to the integration of two scRNA-seq expression profiles that measure human and mouse midbrain development. TD-based unsupervised FE could select not only coincident genes between human and mouse but also biologically reliable genes. Coincidence between two species as well as biological reliability of selected genes is increased compared with that using principal component analysis (PCA)-based FE applied to the same data set in the previous study. Since PCA-based unsupervised FE outperformed the other three popular unsupervised gene selection methods, highly variable genes, bimodal genes, and dpFeature, TD-based unsupervised FE can do so as well. In addition to this, 10 transcription factors (TFs) that might regulate selected genes and might contribute to midbrain development were identified. These 10 TFs, BHLHE40, EGR1, GABPA, IRF3, PPARG, REST, RFX5, STAT3, TCF7L2, and ZBTB33, were previously reported to be related to brain functions and diseases. TD-based unsupervised FE is a promising method to integrate two scRNA-seq profiles effectively.}
+}
+@InProceedings{Taguchi2019,
+author="Taguchi, Y-H.",
+editor="Huang, De-Shuang
+and Bevilacqua, Vitoantonio
+and Premaratne, Prashan",
+title="Multiomics Data Analysis Using Tensor Decomposition Based Unsupervised Feature Extraction",
+booktitle="Intelligent Computing Theories and Application",
+year="2019",
+publisher="Springer International Publishing",
+address="Cham",
+pages="565--574",
+abstract="Multiomics data analysis is the central issue of genomics science. In spite of that, there are not well defined methods that can integrate multomics data sets, which are formatted as matrices with different sizes. In this paper, I propose the usage of tensor decomposition based unsupervised feature extraction as a data mining tool for multiomics data set. It can successfully integrate miRNA expression, mRNA expression and proteome, which were used as a demonstration example of DIABLO that is the recently proposed advanced method for the integrated analysis of multiomics data set.",
+isbn="978-3-030-26763-6"
+}
+
+
+@INPROCEEDINGS{Taguchi2018a,
+  author={Taguchi, Y-H. and Ng, Ka-Lok},
+  booktitle={2018 IEEE 18th International Conference on Bioinformatics and Bioengineering (BIBE)}, 
+  title={[Regular Paper] Tensor Decomposition–Based Unsupervised Feature Extraction for Integrated Analysis of TCGA Data on MicroRNA Expression and Promoter Methylation of Genes in Ovarian Cancer}, 
+  year={2018},
+  volume={},
+  number={},
+  pages={195-200},
+  doi={10.1109/BIBE.2018.00045}}
+  @article{Taguchi2018, 
+year = {2018}, 
+title = {{Tensor decomposition-based and principal-component-analysis-based unsupervised feature extraction applied to the gene expression and methylation profiles in the brains of social insects with multiple castes}}, 
+author = {Y-H.  Taguchi}, 
+journal = {BMC Bioinformatics}, 
+doi = {10.1186/s12859-018-2068-7}, 
+abstract = {{Even though coexistence of multiple phenotypes sharing the same genomic background is interesting, it remains incompletely understood. Epigenomic profiles may represent key factors, with unknown contributions to the development of multiple phenotypes, and social-insect castes are a good model for elucidation of the underlying mechanisms. Nonetheless, previous studies have failed to identify genes associated with aberrant gene expression and methylation profiles because of the lack of suitable methodology that can address this problem properly. A recently proposed principal component analysis (PCA)-based and tensor decomposition (TD)-based unsupervised feature extraction (FE) can solve this problem because these two approaches can deal with gene expression and methylation profiles even when a small number of samples is available. PCA-based and TD-based unsupervised FE methods were applied to the analysis of gene expression and methylation profiles in the brains of two social insects, Polistes canadensis and Dinoponera quadriceps. Genes associated with differential expression and methylation between castes were identified, and analysis of enrichment of Gene Ontology terms confirmed reliability of the obtained sets of genes from the biological standpoint. Biologically relevant genes, shown to be associated with significant differential gene expression and methylation between castes, were identified here for the first time. The identification of these genes may help understand the mechanisms underlying epigenetic control of development of multiple phenotypes under the same genomic conditions.}}, 
+pages = {99}, 
+number = {Suppl 4}, 
+volume = {19}
+}
+@article{Taguchi2017a,
+    doi = {10.1371/journal.pone.0183933},
+    author = {Taguchi, Y-H.},
+    journal = {PLOS ONE},
+    publisher = {Public Library of Science},
+    title = {Tensor decomposition-based unsupervised feature extraction applied to matrix products for multi-view data processing},
+    year = {2017},
+    month = {08},
+    volume = {12},
+    url = {https://doi.org/10.1371/journal.pone.0183933},
+    pages = {1-36},
+    abstract = {In the current era of big data, the amount of data available is continuously increasing. Both the number and types of samples, or features, are on the rise. The mixing of distinct features often makes interpretation more difficult. However, separate analysis of individual types requires subsequent integration. A tensor is a useful framework to deal with distinct types of features in an integrated manner without mixing them. On the other hand, tensor data is not easy to obtain since it requires the measurements of huge numbers of combinations of distinct features; if there are m kinds of features, each of which has N dimensions, the number of measurements needed are as many as Nm, which is often too large to measure. In this paper, I propose a new method where a tensor is generated from individual features without combinatorial measurements, and the generated tensor was decomposed back to matrices, by which unsupervised feature extraction was performed. In order to demonstrate the usefulness of the proposed strategy, it was applied to synthetic data, as well as three omics datasets. It outperformed other matrix-based methodologies.},
+    number = {8},
+
+}
 @article{Ding2016,
     author = {Ding, Zijian and Zu, Songpeng and Gu, Jin},
     title = "{Evaluating the molecule-based prediction of clinical drug responses in cancer}",

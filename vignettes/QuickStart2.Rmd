@@ -113,6 +113,7 @@ for (id in c(1:4))
 }
 ```
 
+This method was used in many studies[@Taguchi2022] by maintainer. 
 
 
 ## When features are shared
@@ -157,4 +158,10 @@ Finally, selected feature are listed as follows.
 ``` {r, fig.keep="none"}
 index <- selectFeatureProj(HOSVD,Multi,cond,de=1e-3,input_all=2) #Batch mode
 head(tableFeatures(Z,index))
+```
+
+This method was used in many studies[@Taguchi2021] by maintainer. 
+
+```{r}
+sessionInfo()
 ```
