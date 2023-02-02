@@ -10,8 +10,23 @@ The goal of TDbasedUFEadv is to …
 
 ## Installation
 
-You can install the development version of TDbasedUFEadv from
+You can install the latest release of TDbasedUFE from
 [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("tagtag/TDbasedUFEadv@v0.99.0-1")
+```
+
+You can install the development version of TDbasedUFE from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("tagtag/TDbasedUFEadv",build_vignettes = TRUE)
+```
+
+or if it does not work, try
 
 ``` r
 # install.packages("devtools")
