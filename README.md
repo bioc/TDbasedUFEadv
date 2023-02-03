@@ -15,7 +15,7 @@ You can install the latest release of TDbasedUFEadv from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("tagtag/TDbasedUFEadv@v0.99.0-1")
+devtools::install_github("tagtag/TDbasedUFEadv@0.99.0-1")
 ```
 
 You can install the development version of TDbasedUFEadv from
