@@ -10,7 +10,7 @@ The goal of TDbasedUFEadv is to …
 
 ## Installation
 
-You can install the latest release of TDbasedUFE from
+You can install the latest release of TDbasedUFEadv from
 [GitHub](https://github.com/) with:
 
 ``` r
@@ -18,7 +18,7 @@ You can install the latest release of TDbasedUFE from
 devtools::install_github("tagtag/TDbasedUFEadv@v0.99.0-1")
 ```
 
-You can install the development version of TDbasedUFE from
+You can install the development version of TDbasedUFEadv from
 [GitHub](https://github.com/) with:
 
 ``` r
