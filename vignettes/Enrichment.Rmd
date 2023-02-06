@@ -1,0 +1,117 @@
+---
+title: "Enrichment"
+author:
+- name: Y-h. Taguchi
+  affiliation:  Department of Physics, Chuo University, Tokyo 112-8551, Japan
+  email: tag@granular.com
+output:   
+    BiocStyle::html_document:
+    toc: true
+bibliography: references.bib
+vignette: >
+  %\VignetteIndexEntry{Enrichment}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r style, echo = FALSE, results = 'asis'}
+BiocStyle::markdown()
+```
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+
+```{r setup}
+library(TDbasedUFE)
+library(TDbasedUFEadv)
+```
+
+# Introduction
+
+It might be helpful to demonstrate how to evaluate selected genes by enrichment analysis. Here, we show some of useful tools applied to the output from TDbasedUFEadv
+In order foe this, we reproduce one exmaple in QuickStart2 as follows.
+
+``` {r}
+require(RTCGA.rnaseq)
+Multi <- list(ACC.rnaseq[seq_len(100),1+seq_len(1000)],
+             BLCA.rnaseq[seq_len(100),1+seq_len(1000)],
+             BRCA.rnaseq[seq_len(100),1+seq_len(1000)],
+             CESC.rnaseq[seq_len(100),1+seq_len(1000)])
+Z <- prepareTensorfromList(Multi,10)
+Z <- aperm(Z,c(2,1,3))
+Z <- PrepareSummarizedExperimentTensor(
+    feature =colnames(ACC.rnaseq)[1+seq_len(1000)],
+                                       sample=array("",1),value=Z)
+HOSVD <- computeHosvd(Z)
+cond<- rep(list(rep(seq_len(2),each=50)),4)
+index <- selectFeatureProj(HOSVD,Multi,cond,de=1e-3,input_all=2) #Batch mode
+head(tableFeatures(Z,index))
+genes <-unlist(lapply(strsplit(tableFeatures(Z,index)[,1],"|",fixed=T),"[",1))
+```
+
+# Enrichr 
+
+Enrichr[@Enrichr] is one of tools that often provides us significant results 
+toward genes selected by TDbasedUFE and TDbasedUFEadv.
+
+``` {r}
+library(enrichR)
+setEnrichrSite("Enrichr") 
+websiteLive <- TRUE
+dbs <- c("GO_Molecular_Function_2015", "GO_Cellular_Component_2015", "GO_Biological_Process_2015")
+enriched <- enrichr(genes,dbs)
+if (websiteLive) plotEnrich(enriched[[3]], showTerms = 20, numChar = 40, y = "Count", orderBy = "P.value")
+```
+
+Enrichr can provide you huge number of enrichment analyses, 
+many of which have good compatibility with the genes selected by
+TDbasedUFE as well as TDbasedUFEadv by the exprience. 
+Please check Enrichr's web site to see what kinds of enrichment
+analyses can be done.
+
+# STRING
+
+STRING[@STRING] is enrichment analyses based upon protein-protein intearction, 
+which is known to provide often significant results toward genes selcetd bt
+TDbasedUFE as well as TDbasedUFEadv.
+
+```{r}
+library(STRINGdb)
+options(timeout=200)
+string_db <- STRINGdb$new( version="11.5", 
+                           species=9606,score_threshold=200, 
+                           network_type="full", input_directory="")
+example1_mapped <- string_db$map(data.frame(genes=genes),
+                                 "genes",removeUnmappedRows = TRUE )
+hits <- example1_mapped$STRING_id
+string_db$plot_network( hits )
+```
+# RITAN
+
+Although these above can provide us enough number of information to evaluate 
+the genes selected by TDbasedUFE as well as TDbasedUFEadv, one migh need 
+all one package for which one does not how to decied which category must
+be evaluated in enrichment analysis.
+
+In this case, we would recommend Metascape[@Metascape] that unfotrunately  
+does not have the ways approched from R. Thus, we recommend RITAN as
+an altenative. It can list signifucant ones among multiple categories.
+
+
+```{r}
+library(RITANdata)
+require(RITAN)
+resources <- c("ReactomePathways", "MSigDB_Hallmarks")
+e <- term_enrichment(genes, resources = resources, all_symbols = cached_coding_genes)
+plot(e[seq_len(15),],col=-log10(e[seq_len(15),6]),pch=16)
+```
+```{r}
+sessionInfo()
+```
+

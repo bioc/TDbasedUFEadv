@@ -10,6 +10,9 @@
 #' @import MOFAdata
 #' @import TDbasedUFE
 #' @import Biobase
+#' @import enrichR
+#' @import STRINGdb
+#' @import RITAN
 #' @importFrom GenomicRanges GRanges
 #' @importFrom rTensor hosvd as.tensor
 #' @importFrom stats pchisq p.adjust optim
