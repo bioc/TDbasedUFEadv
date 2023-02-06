@@ -48,6 +48,8 @@ vignette(“QuickStart”)
 
 vignette(“QuickStart2”)
 
+vignette(“Enrichment”)
+
 For more theoretical background
 
 vignette(“TDbasedUFEadv”)
