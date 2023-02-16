@@ -61,7 +61,7 @@ Z <- PrepareSummarizedExperimentTensor(
     sampleData=prepareCondTCGA(Multi_sample,Clinical,k,j))
 HOSVD <- computeHosvd(Z)
 cond<- attr(Z,"sampleData")
-index <- selectFeatureProj(HOSVD,Multi,cond,de=1e-3,input_all=2) #Batch mode
+index <- selectFeatureProj(HOSVD,Multi,cond,de=1e-3,input_all=3) #Batch mode
 head(tableFeatures(Z,index))
 genes <-unlist(lapply(strsplit(tableFeatures(Z,index)[,1],"|",fixed=T),"[",1))
 ```
@@ -103,6 +103,7 @@ example1_mapped <- string_db$map(data.frame(genes=genes),
 hits <- example1_mapped$STRING_id
 string_db$plot_network( hits )
 ```
+
 # RITAN
 
 Although these above can provide us enough number of information to evaluate 
@@ -112,7 +113,7 @@ be evaluated in enrichment analysis.
 
 In this case, we would recommend Metascape[@Metascape] that unfotrunately  
 does not have the ways approched from R. Thus, we recommend RITAN as
-an altenative. It can list signifucant ones among multiple categories.
+an altenative. It can list significant ones among multiple categories.
 
 
 ```{r}

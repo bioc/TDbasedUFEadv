@@ -200,6 +200,7 @@ head(tableFeatures(Z,index))
 rm(Z)
 rm(HOSVD)
 detach("package:RTCGA.rnaseq")
+rm(SVD)
 ```
 The described methods were freeuently used in the studies[@Taguchi2017a] [@Taguchi2018]  [@Taguchi2020] by maintenors.
 
@@ -277,6 +278,10 @@ Confusion matrix of features selceted between expDrug and expDisease.
 
 The described methods were freeuently used in the studies[@Taguchi2019a] by maintenors.
 
+```{r}
+rm(Z)
+rm(SVD)
+```
 
 ## When samples are shared 
 
