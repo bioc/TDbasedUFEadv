@@ -3,6 +3,7 @@
 export(PrepareSummarizedExperimentTensorRect)
 export(computeSVD)
 export(prepareCondDrugandDisease)
+export(prepareCondTCGA)
 export(prepareTensorfromList)
 export(prepareTensorfromMatrix)
 export(prepareexpDrugandDisease)

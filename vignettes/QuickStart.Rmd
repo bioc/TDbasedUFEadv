@@ -394,7 +394,7 @@ Pressing enter we can get these two plots as well.
 
 Since package does not allow us interactive mode, we place here bacth mode.
 ```{r, fig.keep='none'}
-index_all <- selectFeatureRect(SVD,cond,de=c(0.5,0.5),input_all=6)
+index_all <- selectFeatureRect(SVD,cond,de=c(0.5,0.5),input_all=6) #batch mode
 ```
 Then we can list the Drugs and Methylation sites selected as being distinct 
 between male and female.
