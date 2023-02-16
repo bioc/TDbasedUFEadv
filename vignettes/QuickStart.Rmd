@@ -77,6 +77,7 @@ require(RTCGA.rnaseq)
 dummy <- prepareexpDrugandDisease(LIST)
 expDrug <- dummy[[1]]
 expDisease <- dummy[[2]]
+rm(LIST)
 ```
 expDrug is taken from RTCGA packge and those associated with Drugs based upon 
 [@Ding2016].  Those files are listed in drug_response.txt included in Clinical
@@ -195,7 +196,11 @@ Finally, list the genes selected as those associated with distinct expression.
 ```{r}
 head(tableFeatures(Z,index))
 ```
-
+```{r}
+rm(Z)
+rm(HOSVD)
+detach("package:RTCGA.rnaseq")
+```
 The described methods were freeuently used in the studies[@Taguchi2017a] [@Taguchi2018]  [@Taguchi2020] by maintenors.
 
 ### Reduction of required memory using partial summation.

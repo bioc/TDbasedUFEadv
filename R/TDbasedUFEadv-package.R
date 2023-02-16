@@ -5,6 +5,7 @@
 #' @importFrom methods new
 #' @importFrom utils read.csv
 #' @import RTCGA.rnaseq
+#' @import RTCGA.clinical
 #' @import RTCGA
 #' @import BiocStyle
 #' @import MOFAdata
