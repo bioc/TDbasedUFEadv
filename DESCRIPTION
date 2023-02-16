@@ -27,6 +27,7 @@ Imports:
     Biobase,
     RTCGA,
     RTCGA.rnaseq,
+    RTCGA.clinical,
     utils,
     GenomicRanges,
     rTensor,
