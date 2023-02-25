@@ -86,7 +86,7 @@ input_all <- selectSingularValueVectorLarge(HOSVD,cond,input_all=c(12,1))
 Finally,  we perform the following function to select features in individual 
 omics profiles in an interative mode
 ```
-HOSVD$U[[1]] <- HOSVD$U[[2]] #selectFeatureSquareのHOSVD$U[[1]]を[[2]]にすればこれは不要
+
 index_all <- selectFeatureSquare(HOSVD,input_all,CLL_data,
                                  de=c(0.5,0.1,0.1,1))
 ```
