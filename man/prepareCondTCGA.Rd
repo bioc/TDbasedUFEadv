@@ -26,10 +26,10 @@ Title Prepare Sample label for TCGA data
 require(RTCGA.clinical)
 require(RTCGA.rnaseq)
 Clinical <- list(BLCA.clinical,BRCA.clinical,CESC.clinical,COAD.clinical)
-Multi_sample <- list(BLCA.rnaseq[seq_len(100),1,drop=F],
-                    BRCA.rnaseq[seq_len(100),1,drop=F],
-                    CESC.rnaseq[seq_len(100),1,drop=F],
-                    COAD.rnaseq[seq_len(100),1,drop=F])
+Multi_sample <- list(BLCA.rnaseq[seq_len(100),1,drop=FALSE],
+                    BRCA.rnaseq[seq_len(100),1,drop=FALSE],
+                    CESC.rnaseq[seq_len(100),1,drop=FALSE],
+                    COAD.rnaseq[seq_len(100),1,drop=FALSE])
 k <- c(770,1482,773,791)
 j <- c(20,20,12,14)
 cond <- prepareCondTCGA(Multi_sample,Clinical,k,j)
