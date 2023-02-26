@@ -10,6 +10,14 @@ The goal of TDbasedUFEadv is to …
 
 ## Installation
 
+## Installation
+
+``` r
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("TDbasedUFEadv")
+```
+
 You can install the latest release of TDbasedUFEadv from
 [GitHub](https://github.com/) with:
 
