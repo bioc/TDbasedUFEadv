@@ -35,9 +35,9 @@ library(TDbasedUFEadv)
 # Introduction
 
 It might be helpful to demonstrate how to evaluate selected genes by enrichment analysis. Here, we show some of useful tools applied to the output from TDbasedUFEadv
-In order foe this, we reproduce one exmaple in QuickStart2 as follows.
+In order foe this, we reproduce one example in QuickStart2 as follows.
 
-``` {r}
+``` {r, fig.keep="none"}
 require(RTCGA.rnaseq)
 Multi <- list(BLCA.rnaseq[seq_len(100),1+seq_len(1000)],
               BRCA.rnaseq[seq_len(100),1+seq_len(1000)],
@@ -83,14 +83,14 @@ if (websiteLive) plotEnrich(enriched[[3]], showTerms = 20, numChar = 40, y = "Co
 
 Enrichr can provide you huge number of enrichment analyses, 
 many of which have good compatibility with the genes selected by
-TDbasedUFE as well as TDbasedUFEadv by the exprience. 
+TDbasedUFE as well as TDbasedUFEadv by the experience. 
 Please check Enrichr's web site to see what kinds of enrichment
 analyses can be done.
 
 # STRING
 
-STRING[@STRING] is enrichment analyses based upon protein-protein intearction, 
-which is known to provide often significant results toward genes selcetd bt
+STRING[@STRING] is enrichment analyses based upon protein-protein interaction, 
+which is known to provide often significant results toward genes selected by
 TDbasedUFE as well as TDbasedUFEadv.
 
 ```{r}
@@ -108,13 +108,13 @@ string_db$plot_network( hits )
 # RITAN
 
 Although these above can provide us enough number of information to evaluate 
-the genes selected by TDbasedUFE as well as TDbasedUFEadv, one migh need 
-all one package for which one does not how to decied which category must
+the genes selected by TDbasedUFE as well as TDbasedUFEadv, one might need 
+all one package for which one does not how to decide which category must
 be evaluated in enrichment analysis.
 
-In this case, we would recommend Metascape[@Metascape] that unfotrunately  
-does not have the ways approched from R. Thus, we recommend RITAN as
-an altenative. It can list significant ones among multiple categories.
+In this case, we would recommend Metascape[@Metascape] that unfortunately  
+does not have the ways approached from R. Thus, we recommend RITAN as
+an alternative. It can list significant ones among multiple categories.
 
 
 ```{r}

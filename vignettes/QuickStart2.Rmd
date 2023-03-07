@@ -34,7 +34,7 @@ library(TDbasedUFE)
 Since TDbasedUFEadv is an advanced package from TDbasedUFE, please master the
 contents in TDbasedUFE prior to the trial of this package. And this is the second QuickStart.
 Please master Quickstart before trying this one, QuickStart2. Here is a flowchart 
-how we can make ues of indvidual funcions in TDbassedUFE and TDbasedUFEadv.
+how we can make use of individual functions in TDbasedUFE and TDbasedUFEadv.
 
 ![Relationship among functions in TDbasedUFE and TDbasedUFEadv](./flowchart2.jpg)
 
@@ -42,7 +42,7 @@ how we can make ues of indvidual funcions in TDbassedUFE and TDbasedUFEadv.
 
 ## When samples are shared
 
-As an alternative approch that can integrate multiple omics that share sample, 
+As an alternative approach that can integrate multiple omics that share sample, 
 we propose the method that makes use of projection provided by SVD.
 
 We prepare a tensor that is a bundle of the first ten singular value vectors 
@@ -67,7 +67,7 @@ we set conditions as
 ```{r}
 cond <- list(NULL,attr(Z,"sampleData")[[1]],seq_len(4))
 ```
-Interacitve more can be activated as
+Interactive more can be activated as
 ```
 input_all <- selectSingularValueVectorLarge(HOSVD,cond)
 ```
@@ -79,18 +79,18 @@ select the 12th one and the third one shown in below.
 ![The first singular value vector attributed to omics](./fig16.jpg)
 
 But here in order to include TDbasedUFEadv into package, we are forced to
-execute function as bacth mode as
+execute function as batch mode as
 ```{r}
 input_all <- selectSingularValueVectorLarge(HOSVD,cond,input_all=c(12,1))
 ```
 Finally,  we perform the following function to select features in individual 
-omics profiles in an interative mode
+omics profiles in an iterative mode
 ```
 
 index_all <- selectFeatureSquare(HOSVD,input_all,CLL_data,
                                  de=c(0.5,0.1,0.1,1))
 ```
-and we can see the following four plots (to proceed in an interctrive mode, simply press enter).
+and we can see the following four plots (to proceed in an interactive mode, simply press enter).
 
 ![Left: Dependence of standard deviation of histogram of P-values. Right: Histogram of 1-P, for Drugs. ](./fig17.jpg)
 ![Left: Dependence of standard deviation of histogram of P-values. Right: Histogram of 1-P, for Methylation ](./fig18.jpg)
@@ -103,7 +103,7 @@ HOSVD$U[[1]] <- HOSVD$U[[2]] #selectFeatureSquareのHOSVD$U[[1]]を[[2]]にす�
 index_all <- selectFeatureSquare(HOSVD,input_all,CLL_data,
                                  de=c(0.5,0.1,0.1,1),interact=FALSE) #Batch mode
 ```
-Finnally, we list the selected features for four omics profiles that share samples.
+Finally, we list the selected features for four omics profiles that share samples.
 
 ```{r}
 for (id in c(1:4))
@@ -118,8 +118,12 @@ This method was used in many studies[@Taguchi2022] by maintainer.
 
 ## When features are shared
 
-Now we discuss what to do when multiple omics data share not samples but features.
-We prepare data set from RTCGA.rnaseq as follows, with retriieving reduced pertial sets from four ones.
+Now we discuss what to do when multiple omics data share not samples but 
+features. We prepare data set from RTCGA.rnaseq as follows, with retrieving 
+reduced partial sets from four ones. One should notice that RTCGA is an old
+package from TCGA (as for 2015). I used it only for demonstration purpose.
+If you would like to use TCGA for your research, I recommend you to use
+more modern packages, e.g., curatedTCGAData in Bioconductor.
 ```{r}
 require(RTCGA.rnaseq)
 Multi <- list(BLCA.rnaseq[seq_len(100),1+seq_len(1000)],
@@ -127,7 +131,7 @@ Multi <- list(BLCA.rnaseq[seq_len(100),1+seq_len(1000)],
               CESC.rnaseq[seq_len(100),1+seq_len(1000)],
               COAD.rnaseq[seq_len(100),1+seq_len(1000)])
 ```
-Multi includes four objects, each of which is matrix that represent 100 samples (rows) and 1000 (featuers). Please note it is different from usual cases where columns and rows are features and samples, respectrively. They are marged into tensor as follows
+Multi includes four objects, each of which is matrix that represent 100 samples (rows) and 1000 (features). Please note it is different from usual cases where columns and rows are features and samples, respectively. They are marge into tensor as follows
 ```{r}
 Z <- prepareTensorfromList(Multi,10)
 Z <- aperm(Z,c(2,1,3))
@@ -166,7 +170,7 @@ we select the third singular value vectors as shown in below
 and we get the following plot, too.
 
 ![Left: Dependence of standard deviation of histogram of P-values. Right: Histogram of 1-P](./fig22.jpg)
-Since package does not allow us to include inteartive mode, we place here batch mode as follows.
+Since package does not allow us to include interactive mode, we place here batch mode as follows.
 Finally, selected feature are listed as follows.
 ``` {r, fig.keep="none"}
 index <- selectFeatureProj(HOSVD,Multi,cond,de=1e-3,input_all=3) #Batch mode
