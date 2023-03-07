@@ -16,6 +16,7 @@ Condition matrix for expDrug
 Title Prepare condition matrix for expDrug
 }
 \examples{
+\donttest{
 require(RTCGA.rnaseq)
 LIST <- list(ACC.rnaseq,
             BLCA.rnaseq,
@@ -47,4 +48,5 @@ LIST <- list(ACC.rnaseq,
 dummy <- prepareexpDrugandDisease(LIST)
 expDrug <- dummy[[1]]
 Cond <- prepareCondDrugandDisease(expDrug)
+}
 }

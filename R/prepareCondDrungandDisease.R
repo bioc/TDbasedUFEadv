@@ -6,6 +6,7 @@
 #' @export
 #'
 #' @examples
+#' \donttest{
 #' require(RTCGA.rnaseq)
 #'LIST <- list(ACC.rnaseq,
 #'             BLCA.rnaseq,
@@ -37,6 +38,7 @@
 #' dummy <- prepareexpDrugandDisease(LIST)
 #' expDrug <- dummy[[1]]
 #' Cond <- prepareCondDrugandDisease(expDrug)
+#' }
 prepareCondDrugandDisease <- function(expDrug){
     dir <- system.file("extdata", package="TDbasedUFEadv")
     TCGA <- read.csv(file.path(dir,"drug_response.txt"), sep="\t")

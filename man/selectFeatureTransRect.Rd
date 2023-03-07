@@ -2,7 +2,7 @@
 % Please edit documentation in R/selectFeatureTransRect.R
 \name{selectFeatureTransRect}
 \alias{selectFeatureTransRect}
-\title{Title Select features for a tensor generated from two matricies that
+\title{Title Select features for a tensor generated from two matrices that
  share samples.}
 \usage{
 selectFeatureTransRect(
@@ -23,7 +23,7 @@ selectFeatureTransRect(
 
 \item{p0}{threshold value for the significance}
 
-\item{breaks}{number of bins of the histgram of P-values}
+\item{breaks}{number of bins of the histogram of P-values}
 
 \item{input_all}{The selected singular value vectors attributed to samples.
 if NULL, interactive mode}
@@ -33,7 +33,7 @@ list of logical vector that represent if the individual features
 are selected and P-values.
 }
 \description{
-Title Select features for a tensor generated from two matricies that
+Title Select features for a tensor generated from two matrices that
  share samples.
 }
 \examples{

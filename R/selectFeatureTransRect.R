@@ -1,11 +1,11 @@
-#' Title Select features for a tensor generated from two matricies that
+#' Title Select features for a tensor generated from two matrices that
 #'  share samples.
 #'
 #' @param HOSVD  HOSVD 
 #' @param cond list of conditions
 #' @param de initial values for optimization of standard deviation
 #' @param p0 threshold value for the significance
-#' @param breaks number of bins of the histgram of P-values
+#' @param breaks number of bins of the histogram of P-values
 #' @param input_all The selected singular value vectors attributed to samples.
 #' if NULL, interactive mode
 #'

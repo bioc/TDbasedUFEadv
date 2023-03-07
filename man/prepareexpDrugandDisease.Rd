@@ -18,6 +18,7 @@ Title Generating gene expression of drug treated cell lines and a disease
 cell line
 }
 \examples{
+ \donttest{
 require(RTCGA.rnaseq)
 LIST <- list(ACC.rnaseq,
             BLCA.rnaseq,
@@ -47,4 +48,5 @@ LIST <- list(ACC.rnaseq,
             UCEC.rnaseq,
             UCS.rnaseq)
 dummy <- prepareexpDrugandDisease(LIST)
+}
 }
