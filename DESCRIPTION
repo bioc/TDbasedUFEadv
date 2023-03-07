@@ -1,7 +1,7 @@
 Package: TDbasedUFEadv
 Type: Package
 Title: TDbasedUFEadv
-Version: 0.99.1
+Version: 0.99.2
 Authors@R: 
     person("Taguchi", "Y-h.", ,
     "tag@granular.com", role = c("aut", "cre"),
