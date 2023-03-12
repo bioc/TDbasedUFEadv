@@ -22,31 +22,7 @@ cell line
 require(RTCGA.rnaseq)
 LIST <- list(ACC.rnaseq,
             BLCA.rnaseq,
-            BRCA.rnaseq,
-            CESC.rnaseq,
-            COAD.rnaseq,
-            ESCA.rnaseq,
-            GBM.rnaseq,
-            HNSC.rnaseq,
-            KICH.rnaseq,
-            KIRC.rnaseq,
-            KIRP.rnaseq,
-            LGG.rnaseq,
-            LIHC.rnaseq,
-            LUAD.rnaseq,
-            LUSC.rnaseq,
-            OV.rnaseq,
-            PAAD.rnaseq,
-            PCPG.rnaseq,
-            PRAD.rnaseq,
-            READ.rnaseq,
-            SARC.rnaseq,
-            SKCM.rnaseq,
-            STAD.rnaseq,
-            TGCT.rnaseq,
-            THCA.rnaseq,
-            UCEC.rnaseq,
-            UCS.rnaseq)
+            BRCA.rnaseq)
 dummy <- prepareexpDrugandDisease(LIST)
 }
 }

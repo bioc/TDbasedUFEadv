@@ -45,7 +45,7 @@ each of which is composed of gene expression of drug treated one and disease
 one. At first, we try to prepare two omics profiles, expDrug and expDisease, 
 that represent gene expression profiles of cell lines treated by various drugs
 and a cell line of diseases by
-``` {r}
+```{r, eval=FALSE}
 require(RTCGA.rnaseq)
  LIST <- list(ACC.rnaseq,
                  BLCA.rnaseq,
@@ -74,6 +74,20 @@ require(RTCGA.rnaseq)
                  THCA.rnaseq,
                  UCEC.rnaseq,
                  UCS.rnaseq)
+dummy <- prepareexpDrugandDisease(LIST)
+expDrug <- dummy[[1]]
+expDisease <- dummy[[2]]
+rm(LIST)
+```
+Although you should execute above, 
+in order to suppress execute time we instead perform here
+during installation. 
+``` {r}
+require(RTCGA.rnaseq)
+LIST <- list(ACC.rnaseq,
+                 BLCA.rnaseq,
+                 BRCA.rnaseq,
+                 CESC.rnaseq)
 dummy <- prepareexpDrugandDisease(LIST)
 expDrug <- dummy[[1]]
 expDisease <- dummy[[2]]
