@@ -20,5 +20,7 @@
 #' @importFrom graphics hist par arrows boxplot abline
 #' @importFrom utils menu
 #' @importFrom graphics plot.new
+#' @importFrom hash keys
+#' @importFrom stats filter
 ## usethis namespace: end
 NULL

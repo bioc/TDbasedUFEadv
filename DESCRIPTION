@@ -1,7 +1,7 @@
 Package: TDbasedUFEadv
 Type: Package
 Title: TDbasedUFEadv
-Version: 0.99.4
+Version: 0.99.5
 Authors@R: 
     person("Taguchi", "Y-h.", ,
     "tag@granular.com", role = c("aut", "cre"),
@@ -38,7 +38,8 @@ Imports:
     stats,
     RITAN,
     STRINGdb,
-    enrichR
+    enrichR,
+    hash
 RoxygenNote: 7.2.3
 Suggests: 
     knitr,
