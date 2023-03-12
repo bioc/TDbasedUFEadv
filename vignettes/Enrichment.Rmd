@@ -65,6 +65,8 @@ index <- selectFeatureProj(HOSVD,Multi,cond,de=1e-3,input_all=3) #Batch mode
 head(tableFeatures(Z,index))
 genes <-unlist(lapply(strsplit(tableFeatures(Z,index)[,1],"|",
                                fixed=TRUE),"[",1))
+entrez <- unlist(lapply(strsplit(tableFeatures(Z,index)[,1],"|",
+                               fixed=TRUE),"[",2))
 ```
 
 # Enrichr 
@@ -105,7 +107,7 @@ hits <- example1_mapped$STRING_id
 string_db$plot_network( hits )
 ```
 
-# RITAN
+# enrichplot
 
 Although these above can provide us enough number of information to evaluate 
 the genes selected by TDbasedUFE as well as TDbasedUFEadv, one might need 
@@ -118,11 +120,10 @@ an alternative. It can list significant ones among multiple categories.
 
 
 ```{r}
-library(RITANdata)
-require(RITAN)
-resources <- c("ReactomePathways", "MSigDB_Hallmarks")
-e <- term_enrichment(genes, resources = resources, all_symbols = cached_coding_genes)
-plot(e[seq_len(15),],col=-log10(e[seq_len(15),6]),pch=16)
+require(DOSE)
+require(enrichplot)
+edo <- enrichDGN(entrez)
+dotplot(edo, showCategory=30) + ggtitle("dotplot for ORA")
 ```
 ```{r}
 sessionInfo()

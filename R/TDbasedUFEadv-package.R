@@ -13,7 +13,9 @@
 #' @import Biobase
 #' @import enrichR
 #' @import STRINGdb
-#' @import RITAN
+#' @import enrichplot
+#' @import DOSE
+#' @import hash
 #' @importFrom GenomicRanges GRanges
 #' @importFrom rTensor hosvd as.tensor
 #' @importFrom stats pchisq p.adjust optim

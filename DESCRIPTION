@@ -1,7 +1,7 @@
 Package: TDbasedUFEadv
 Type: Package
 Title: TDbasedUFEadv
-Version: 0.99.5
+Version: 0.99.6
 Authors@R: 
     person("Taguchi", "Y-h.", ,
     "tag@granular.com", role = c("aut", "cre"),
@@ -36,7 +36,8 @@ Imports:
     methods,
     graphics,
     stats,
-    RITAN,
+    enrichplot,
+    DOSE,
     STRINGdb,
     enrichR,
     hash
