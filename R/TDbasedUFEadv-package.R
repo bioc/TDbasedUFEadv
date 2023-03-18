@@ -8,20 +8,19 @@
 #' @import RTCGA.clinical
 #' @import RTCGA
 #' @import BiocStyle
-#' @import MOFAdata
+#' @import MOFAdata 
 #' @import TDbasedUFE
 #' @import Biobase
-#' @import enrichR
+#' @importFrom enrichR setEnrichrSite enrichr plotEnrich
 #' @import STRINGdb
-#' @import enrichplot
-#' @import DOSE
-#' @import hash
+#' @importFrom enrichplot dotplot
+#' @importFrom DOSE enrichDGN
+#' @importFrom shiny fluidPage sidebarLayout  sidebarPanel actionButton mainPanel 
+#' plotOutput observeEvent runApp shinyApp stopApp renderPlot
 #' @importFrom GenomicRanges GRanges
 #' @importFrom rTensor hosvd as.tensor
 #' @importFrom stats pchisq p.adjust optim
 #' @importFrom graphics hist par arrows boxplot abline
-#' @importFrom utils menu
-#' @importFrom graphics plot.new
 #' @importFrom hash keys
 #' @importFrom stats filter
 ## usethis namespace: end

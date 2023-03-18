@@ -1,7 +1,7 @@
 Package: TDbasedUFEadv
 Type: Package
 Title: TDbasedUFEadv
-Version: 0.99.6
+Version: 0.99.7
 Authors@R: 
     person("Taguchi", "Y-h.", ,
     "tag@granular.com", role = c("aut", "cre"),
@@ -28,8 +28,8 @@ Imports:
     RTCGA,
     RTCGA.rnaseq,
     RTCGA.clinical,
-    utils,
     GenomicRanges,
+    utils,
     rTensor,
     BiocStyle,
     MOFAdata,
@@ -40,7 +40,8 @@ Imports:
     DOSE,
     STRINGdb,
     enrichR,
-    hash
+    hash,
+    shiny
 RoxygenNote: 7.2.3
 Suggests: 
     knitr,
