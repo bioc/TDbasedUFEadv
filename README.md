@@ -50,11 +50,13 @@ and check TDbasedUFE.
 
 ## Vignettes
 
+For theoretical memo
+
+vignette(“Explanation_of_TDbasedUFEadv”)
+
 How to use it.
 
-vignette(“QuickStart”)
-
-vignette(“QuickStart2”)
+vignette(“How_to_use_TDbasedUFEadv”)
 
 vignette(“Enrichment”)
 
