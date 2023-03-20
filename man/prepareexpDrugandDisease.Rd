@@ -2,27 +2,26 @@
 % Please edit documentation in R/prepareexpDrugandDisease.R
 \name{prepareexpDrugandDisease}
 \alias{prepareexpDrugandDisease}
-\title{Title Generating gene expression of drug treated cell lines and a disease
+\title{Generating gene expression of drug treated cell lines and a disease
 cell line}
 \usage{
-prepareexpDrugandDisease(LIST)
+prepareexpDrugandDisease(Cancer_cell_lines)
 }
 \arguments{
-\item{LIST}{list that includes indivisual data set from RTCGA.rnaseq}
+\item{Cancer_cell_lines}{<- list(ACC.rnaseq,BLCA.rnaseq,BRCA.rnaseq)
+list that includes individual data set from RTCGA.rnaseq}
 }
 \value{
 list of expDrug and expDisease
 }
 \description{
-Title Generating gene expression of drug treated cell lines and a disease
+Generating gene expression of drug treated cell lines and a disease
 cell line
 }
 \examples{
  \donttest{
 require(RTCGA.rnaseq)
-LIST <- list(ACC.rnaseq,
-            BLCA.rnaseq,
-            BRCA.rnaseq)
-dummy <- prepareexpDrugandDisease(LIST)
+Cancer_cell_lines <- list(ACC.rnaseq,BLCA.rnaseq,BRCA.rnaseq)
+Drug_and_Disease <- prepareexpDrugandDisease(Cancer_cell_lines)
 }
 }

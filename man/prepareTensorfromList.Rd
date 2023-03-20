@@ -2,25 +2,25 @@
 % Please edit documentation in R/prepareTensorfromList.R
 \name{prepareTensorfromList}
 \alias{prepareTensorfromList}
-\title{Title Prepare tensor from a list that includes multiple profiles}
+\title{Prepare tensor from a list that includes multiple profiles}
 \usage{
-prepareTensorfromList(Multi, L)
+prepareTensorfromList(Multi, proj_dim)
 }
 \arguments{
 \item{Multi}{a list that includes multiple profiles}
 
-\item{L}{the number of projection dimensions}
+\item{proj_dim}{the number of projection dimensions}
 }
 \value{
 a tensor as a bundle of singular value vectors obtained by 
 applying  SVD to individual omics
 }
 \description{
-Title Prepare tensor from a list that includes multiple profiles
+Prepare tensor from a list that includes multiple profiles
 }
 \examples{
 require(MOFAdata)
 data("CLL_data")
 data("CLL_covariates")
-Z <- prepareTensorfromList(CLL_data,10)
+Z <- prepareTensorfromList(CLL_data,as.integer(10))
 }

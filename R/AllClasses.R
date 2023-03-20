@@ -1,4 +1,4 @@
-#' Title
+#' @title Class definitions
 #'
 #' @slot sample character. 
 #' @slot feature list. 

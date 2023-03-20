@@ -2,7 +2,7 @@
 % Please edit documentation in R/selectFeatureTransRect.R
 \name{selectFeatureTransRect}
 \alias{selectFeatureTransRect}
-\title{Title Select features for a tensor generated from two matrices that
+\title{Select features for a tensor generated from two matrices that
  share samples.}
 \usage{
 selectFeatureTransRect(
@@ -10,7 +10,7 @@ selectFeatureTransRect(
   cond,
   de = rep(1e-04, 2),
   p0 = 0.01,
-  breaks = 100,
+  breaks = as.integer(100),
   input_all = NULL
 )
 }
@@ -33,7 +33,7 @@ list of logical vector that represent if the individual features
 are selected and P-values.
 }
 \description{
-Title Select features for a tensor generated from two matrices that
+Select features for a tensor generated from two matrices that
  share samples.
 }
 \examples{
@@ -41,7 +41,7 @@ require(TDbasedUFE)
 matrix1 <- matrix(runif(10000),200) #row features, column samples
 matrix2 <- matrix(runif(20000),400) #row features, column samples
 Z <- prepareTensorfromMatrix(t(matrix1),t(matrix2))
-Z <- PrepareSummarizedExperimentTensorRect(sample=as.character(seq_len(50)),
+Z <- prepareSummarizedExperimentTensorRect(sample=as.character(seq_len(50)),
 feature=list(as.character(seq_len(200)),as.character(seq_len(400))),
 sampleData=list(rep(seq_len(2),each=25)),value=Z)
 HOSVD <- computeHosvd(Z)

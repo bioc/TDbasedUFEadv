@@ -2,19 +2,19 @@
 % Please edit documentation in R/transSVD.R
 \name{transSVD}
 \alias{transSVD}
-\title{Title Convert SVD to that for the case where 
+\title{Convert SVD to that for the case where 
 samples are shared between two matrices}
 \usage{
 transSVD(SVD)
 }
 \arguments{
-\item{SVD}{inout SVD object genetated from computeSVD function}
+\item{SVD}{input SVD object generated from computeSVD function}
 }
 \value{
 converted SVD objects
 }
 \description{
-Title Convert SVD to that for the case where 
+Convert SVD to that for the case where 
 samples are shared between two matrices
 }
 \examples{

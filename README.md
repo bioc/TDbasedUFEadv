@@ -10,7 +10,7 @@ The goal of TDbasedUFEadv is to …
 
 ## Installation
 
-## Installation
+
 
 ``` r
 if (!require("BiocManager", quietly = TRUE))
@@ -44,13 +44,13 @@ devtools::install_github("tagtag/TDbasedUFEadv")
 ## Introduction
 
 It is an advanced version of
-[TDbasedUFE](https://github.com/tagtag/TDbasedUFE/releases/tag/v0.1.0).
+[TDbasedUFE](https://bioconductor.org/packages/devel/bioc/html/TDbasedUFE.html).
 Thus people who would like to use TDbasedUFEadv, please first install
 and check TDbasedUFE.
 
 ## Vignettes
 
-How to use it
+How to use it.
 
 vignette(“QuickStart”)
 

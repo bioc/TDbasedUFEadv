@@ -2,7 +2,7 @@
 % Please edit documentation in R/prepareTensorfromMatrix.R
 \name{prepareTensorfromMatrix}
 \alias{prepareTensorfromMatrix}
-\title{Title Generate tensor from two matricies}
+\title{Generate tensor from two matrices}
 \usage{
 prepareTensorfromMatrix(matrix1, matrix2)
 }
@@ -15,7 +15,7 @@ prepareTensorfromMatrix(matrix1, matrix2)
 A tensor generated from the first and second matricies
 }
 \description{
-Title Generate tensor from two matricies
+Generate tensor from two matrices
 }
 \examples{
 Z <- prepareTensorfromMatrix(matrix(runif(100),10),matrix(runif(100),10))

@@ -2,7 +2,7 @@
 % Please edit documentation in R/selectFeatureProj.R
 \name{selectFeatureProj}
 \alias{selectFeatureProj}
-\title{Title Select feature when projection strategy is employed for the
+\title{Select feature when projection strategy is employed for the
  case where features are shared with multiple omics profiles}
 \usage{
 selectFeatureProj(
@@ -11,7 +11,7 @@ selectFeatureProj(
   cond,
   de = 1e-04,
   p0 = 0.01,
-  breaks = 100,
+  breaks = as.integer(100),
   input_all = NULL
 )
 }
@@ -22,27 +22,27 @@ selectFeatureProj(
 
 \item{cond}{list of conditions for individual omics profiles}
 
-\item{de}{initial value for optimization of statdard deviation}
+\item{de}{initial value for optimization of standard deviation}
 
 \item{p0}{Threshold P-value}
 
 \item{breaks}{The number of bins of histogram of P-values}
 
-\item{input_all}{The number of selected feature. if null, intearactive mode
+\item{input_all}{The number of selected feature. if null, interactive mode
 is activated}
 }
 \value{
 list composed of logical vector that represent which features are selected and p-values
 }
 \description{
-Title Select feature when projection strategy is employed for the
+Select feature when projection strategy is employed for the
  case where features are shared with multiple omics profiles
 }
 \examples{
 require(TDbasedUFE)
 Multi <- list(matrix(runif(1000),10),matrix(runif(1000),10),
 matrix(runif(1000),10),matrix(runif(1000),10))
-Z <- prepareTensorfromList(Multi,10)
+Z <- prepareTensorfromList(Multi,as.integer(10))
 Z <- aperm(Z,c(2,1,3))
 Z <- PrepareSummarizedExperimentTensor(feature =as.character(1:10),
                                       sample=array("",1),value=Z)

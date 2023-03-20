@@ -1,3 +1,3 @@
-# TDbasedUFEadv 0.99.0
+# TDbasedUFEadv 0.99.8
 
-* Added a `NEWS.md` file to track changes to the package.
+* Addressing many comments from reviewers. 

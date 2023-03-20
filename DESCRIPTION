@@ -1,7 +1,8 @@
 Package: TDbasedUFEadv
 Type: Package
 Title: TDbasedUFEadv
-Version: 0.99.8
+Version: 0.99.9
+Language: en-US
 Authors@R: 
     person("Taguchi", "Y-h.", ,
     "tag@granular.com", role = c("aut", "cre"),
@@ -10,7 +11,7 @@ Description:
     This is a comprehensive package to perform
     Tensor decomposition based unsupervised feature extraction.
     It can perform unsupervised feature extraction.
-    It uses tensor decompission.
+    It uses tensor decomposition.
     It is  applicable to gene expression, DNA methylation, and 
     histone modification etc.
     It can perform multiomics analysis.
@@ -19,7 +20,8 @@ biocViews:
     GeneExpression, 
     FeatureExtraction, 
     MethylationArray,
-    SingleCell    
+    SingleCell,
+    Software
 License: GPL-3
 Encoding: UTF-8
 Imports: 
@@ -43,6 +45,10 @@ Imports:
     hash,
     shiny
 RoxygenNote: 7.2.3
+BugReports: 
+ https://github.com/tagtag/TDbasedUFEadv/issues
+URL:
+ https://github.com/tagtag/TDbasedUFEadv
 Suggests: 
     knitr,
     rmarkdown,

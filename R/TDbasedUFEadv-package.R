@@ -2,7 +2,8 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @importFrom methods new
+#' @importFrom stats var
+#' @importFrom methods new is
 #' @importFrom utils read.csv
 #' @import RTCGA.rnaseq
 #' @import RTCGA.clinical

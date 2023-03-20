@@ -2,7 +2,7 @@
 % Please edit documentation in R/prepareCondDrugandDisease.R
 \name{prepareCondDrugandDisease}
 \alias{prepareCondDrugandDisease}
-\title{Title Prepare condition matrix for expDrug}
+\title{Prepare condition matrix for expDrug}
 \usage{
 prepareCondDrugandDisease(expDrug)
 }
@@ -13,16 +13,13 @@ prepareCondDrugandDisease(expDrug)
 Condition matrix for expDrug
 }
 \description{
-Title Prepare condition matrix for expDrug
+Prepare condition matrix for expDrug
 }
 \examples{
 \donttest{
 require(RTCGA.rnaseq)
-LIST <- list(ACC.rnaseq,
-            BLCA.rnaseq,
-            BRCA.rnaseq)
-dummy <- prepareexpDrugandDisease(LIST)
-expDrug <- dummy[[1]]
-Cond <- prepareCondDrugandDisease(expDrug)
+Cancer_cell_lines <- list(ACC.rnaseq,BLCA.rnaseq,BRCA.rnaseq)
+Drug_and_Disease <- prepareexpDrugandDisease(Cancer_cell_lines)
+Cond <- prepareCondDrugandDisease(Drug_and_Disease$expDrug)
 }
 }

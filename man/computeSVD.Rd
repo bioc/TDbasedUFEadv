@@ -5,7 +5,7 @@
 \title{Title Perform SVD toward reduced matrix generated from a tensor with 
 partial summation}
 \usage{
-computeSVD(matrix1, matrix2, dim = 10, scale = TRUE)
+computeSVD(matrix1, matrix2, dim = as.integer(10), scale = TRUE)
 }
 \arguments{
 \item{matrix1}{The first original matrix that generates a tensor}
@@ -18,7 +18,7 @@ computeSVD(matrix1, matrix2, dim = 10, scale = TRUE)
 }
 \value{
 Singular value vectors attributed to two sets of objects associated 
-with eingular value vectors attriuted to features, by multiplying
+with singular value vectors attributed to features, by multiplying
 }
 \description{
 Title Perform SVD toward reduced matrix generated from a tensor with 

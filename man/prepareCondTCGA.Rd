@@ -2,35 +2,45 @@
 % Please edit documentation in R/prepareCondTCGA.R
 \name{prepareCondTCGA}
 \alias{prepareCondTCGA}
-\title{Title Prepare Sample label for TCGA data}
+\title{Prepare Sample label for TCGA data}
 \usage{
-prepareCondTCGA(Multi_sample, Clinical, k, j)
+prepareCondTCGA(
+  Multi_sample,
+  Clinical,
+  ID_column_of_Multi_sample,
+  ID_column_of_Clinical
+)
 }
 \arguments{
 \item{Multi_sample}{list of sample ids}
 
 \item{Clinical}{List of clinical data matrix from RTCGA.clinical}
 
-\item{k}{Column numbers used for conditions}
+\item{ID_column_of_Multi_sample}{Column numbers used for conditions}
 
-\item{j}{Column numbers that include corresponding sample ids 
-in clinical data}
+\item{ID_column_of_Clinical}{Column numbers that include corresponding
+sample ids in clinical data}
 }
 \value{
 list of sample labels
 }
 \description{
-Title Prepare Sample label for TCGA data
+Prepare Sample label for TCGA data
 }
 \examples{
 require(RTCGA.clinical)
 require(RTCGA.rnaseq)
-Clinical <- list(BLCA.clinical,BRCA.clinical,CESC.clinical,COAD.clinical)
-Multi_sample <- list(BLCA.rnaseq[seq_len(100),1,drop=FALSE],
-                    BRCA.rnaseq[seq_len(100),1,drop=FALSE],
-                    CESC.rnaseq[seq_len(100),1,drop=FALSE],
-                    COAD.rnaseq[seq_len(100),1,drop=FALSE])
-k <- c(770,1482,773,791)
-j <- c(20,20,12,14)
-cond <- prepareCondTCGA(Multi_sample,Clinical,k,j)
+Clinical <- list(BLCA.clinical, BRCA.clinical, CESC.clinical, COAD.clinical)
+Multi_sample <- list(
+  BLCA.rnaseq[seq_len(100), 1, drop = FALSE],
+  BRCA.rnaseq[seq_len(100), 1, drop = FALSE],
+  CESC.rnaseq[seq_len(100), 1, drop = FALSE],
+  COAD.rnaseq[seq_len(100), 1, drop = FALSE]
+)
+ID_column_of_Multi_sample <- c(770, 1482, 773, 791)
+ID_column_of_Clinical <- c(20, 20, 12, 14)
+cond <- prepareCondTCGA(
+  Multi_sample, Clinical,
+  ID_column_of_Multi_sample, ID_column_of_Clinical
+)
 }
