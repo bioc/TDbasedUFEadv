@@ -116,12 +116,12 @@ mode (see below), here we assume that you have already finished the selection.
 input_all <- selectSingularValueVectorLarge(HOSVD,cond,input_all=c(2,9)) #Batch mode
 ```
 
-In the case you prefer to select by yourself  you can execute intearctive mode.
+In the case you prefer to select by yourself  you can execute interactive mode.
 ```
 input_all <- selectSingularValueVectorLarge(HOSVD,cond)
 ```
 When you can see ``Next'', ``Prev'', and ``Select'' radio buttons by which you 
-can performs selection as well as histogram and standard deviation optimiztion
+can performs selection as well as histogram and standard deviation optimization
 by which you can verify the success of selection interactively.
 
 
@@ -273,7 +273,7 @@ above, since  vignettes does not allow interactive mode.
 ```
 index_all <- selectFeatureTransRect(HOSVD,cond,de=c(0.01,0.01))
 ```
-and try to select ireratively. Selected features can be shown in the below. 
+and try to select iteratively. Selected features can be shown in the below. 
 
 ```{r}
 head(tableFeaturesSquare(Z,index_all,1))

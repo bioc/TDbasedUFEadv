@@ -3,7 +3,7 @@
 #' @param matrix1 the first input matrix
 #' @param matrix2 the second input matrix
 #'
-#' @return A tensor generated from the first and second matricies 
+#' @return A tensor generated from the first and second matrices 
 #' @export
 #'
 #' @examples

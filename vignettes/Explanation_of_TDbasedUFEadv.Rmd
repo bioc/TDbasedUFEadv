@@ -51,14 +51,14 @@ package is similar to [DESeq2](https://doi.org/doi:10.18129/B9.bioc.DESeq2) or [
 identify differentially expressed genes. In contrast to those supervised methods,
 the present method is unsupervised one, which provides users what kind of 
 profiles are observed over samples, and users are advised to select one of
-fivarite features by which features are selected. In addition to this, the
+favorite features by which features are selected. In addition to this, the
 present method is suitable to small number of samples associated with large 
 number of features. Since this situation is very common in genomics, the 
 present method is supposed to be suitable to be applied to genomics, although
 it does not look liked the methods very specific to genomics science. 
-Actually, we have published the number of papers using the metods inplemented 
-in the present package. I hope that one can make uss of this package for his/her
-own reseraches. 
+Actually, we have published the number of papers using the methods implemented 
+in the present package. I hope that one can make use of this package for his/her
+own researches. 
 
 
 # Integrated analysis of two omics data sets
