@@ -1,7 +1,7 @@
 Package: TDbasedUFEadv
 Type: Package
 Title: TDbasedUFEadv
-Version: 0.99.11
+Version: 0.99.12
 Language: en-US
 Authors@R: 
     person("Taguchi", "Y-h.", ,
