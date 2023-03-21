@@ -30,8 +30,8 @@ Tensor generated from two matrices that share samples
 Prepare tensor generated from two matrices that share samples
 }
 \examples{
-matrix1 <- matrix(runif(10000),200) #row features, column samples
-matrix2 <- matrix(runif(20000),400) #row features, column samples
+matrix1 <- matrix(runif(1000),200) #row features, column samples
+matrix2 <- matrix(runif(2000),400) #row features, column samples
 Z <- prepareTensorfromMatrix(t(matrix1),t(matrix2))
 Z <- prepareSummarizedExperimentTensorRect(sample=as.character(seq_len(50)),
 feature=list(as.character(seq_len(200)),as.character(seq_len(400))),

@@ -12,7 +12,7 @@ prepareTensorfromMatrix(matrix1, matrix2)
 \item{matrix2}{the second input matrix}
 }
 \value{
-A tensor generated from the first and second matricies
+A tensor generated from the first and second matrices
 }
 \description{
 Generate tensor from two matrices
