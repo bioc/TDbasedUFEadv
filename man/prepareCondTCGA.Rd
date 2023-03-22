@@ -28,8 +28,8 @@ list of sample labels
 Prepare Sample label for TCGA data
 }
 \examples{
-require(RTCGA.clinical)
-require(RTCGA.rnaseq)
+library(RTCGA.clinical)
+library(RTCGA.rnaseq)
 Clinical <- list(BLCA.clinical, BRCA.clinical, CESC.clinical, COAD.clinical)
 Multi_sample <- list(
   BLCA.rnaseq[seq_len(100), 1, drop = FALSE],

@@ -37,12 +37,12 @@ Select features for a tensor generated from two matrices that
  share samples.
 }
 \examples{
-require(TDbasedUFE)
+library(TDbasedUFE)
 set.seed(0)
 matrix1 <- matrix(runif(1000),20) #row features, column samples
 matrix2 <- matrix(runif(2000),40) #row features, column samples
 Z <- prepareTensorfromMatrix(t(matrix1),t(matrix2))
-Z <- prepareSummarizedExperimentTensorRect(sample=as.character(seq_len(50)),
+Z <- prepareTensorRect(sample=as.character(seq_len(50)),
 feature=list(as.character(seq_len(20)),as.character(seq_len(40))),
 sampleData=list(rep(seq_len(2),each=25)),value=Z)
 HOSVD <- computeHosvd(Z)

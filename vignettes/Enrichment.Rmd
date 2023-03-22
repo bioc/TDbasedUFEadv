@@ -42,7 +42,7 @@ library(STRINGdb)
 # Introduction
 
 It might be helpful to demonstrate how to evaluate selected genes by enrichment analysis. Here, we show some of useful tools applied to the output from TDbasedUFEadv
-In order foe this, we reproduce one example in QuickStart2 as follows.
+In order foe this, we reproduce one example in "How to use TDbasedUFEadv" as follows.
 
 ``` {r}
 Multi <- list(

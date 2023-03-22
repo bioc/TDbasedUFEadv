@@ -38,6 +38,7 @@ selectFeatureRect <- function(SVD, cond, de = rep(1e-4, 2), p0 = 0.01,
     ui <- fluidPage(
       sidebarLayout(
         sidebarPanel(
+          h3("Select one with prefarable dependence"),
           actionButton(inputId = "action", label = "Next"),
           actionButton(inputId = "prev", label = "Prev"),
           actionButton(inputId = "select", label = "Select")

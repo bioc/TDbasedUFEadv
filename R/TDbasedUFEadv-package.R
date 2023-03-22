@@ -5,11 +5,7 @@
 #' @importFrom stats var
 #' @importFrom methods new is
 #' @importFrom utils read.csv
-#' @import RTCGA.rnaseq
-#' @import RTCGA.clinical
-#' @import RTCGA
-#' @import BiocStyle
-#' @import MOFAdata 
+#' @importFrom RTCGA convertTCGA
 #' @import TDbasedUFE
 #' @import Biobase
 #' @importFrom enrichR setEnrichrSite enrichr plotEnrich
@@ -17,7 +13,7 @@
 #' @importFrom enrichplot dotplot
 #' @importFrom DOSE enrichDGN
 #' @importFrom shiny fluidPage sidebarLayout  sidebarPanel actionButton mainPanel 
-#' plotOutput observeEvent runApp shinyApp stopApp renderPlot
+#' plotOutput observeEvent runApp shinyApp stopApp renderPlot h3
 #' @importFrom GenomicRanges GRanges
 #' @importFrom rTensor hosvd as.tensor
 #' @importFrom stats pchisq p.adjust optim

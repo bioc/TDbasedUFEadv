@@ -13,10 +13,10 @@
 #' matrix1 <- matrix(runif(1000),200) #row features, column samples
 #' matrix2 <- matrix(runif(2000),400) #row features, column samples
 #' Z <- prepareTensorfromMatrix(t(matrix1),t(matrix2))
-#' Z <- prepareSummarizedExperimentTensorRect(sample=as.character(seq_len(50)),
+#' Z <- prepareTensorRect(sample=as.character(seq_len(50)),
 #' feature=list(as.character(seq_len(200)),as.character(seq_len(400))),
 #' sampleData=list(rep(seq_len(2),each=25)),value=Z)
-prepareSummarizedExperimentTensorRect <- function(
+prepareTensorRect <- function(
     sample, feature, value,
     featureRange = GRanges(NULL), sampleData = list(NULL)) {
   # Argument check
@@ -26,7 +26,7 @@ prepareSummarizedExperimentTensorRect <- function(
   stopifnot("`featureRange` must be an GRanges." = is(featureRange, "GRanges"))
   stopifnot("`sampleData` must be a list." = is.list(sampleData))
   #
-  new("SummarizedExperimentTensorRect",
+  new("TensorRect",
     sample = sample,
     feature = feature, value = value,
     featureRange = featureRange, sampleData = sampleData

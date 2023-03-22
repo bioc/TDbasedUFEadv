@@ -20,7 +20,7 @@ cell line
 }
 \examples{
  \donttest{
-require(RTCGA.rnaseq)
+library(RTCGA.rnaseq)
 Cancer_cell_lines <- list(ACC.rnaseq,BLCA.rnaseq,BRCA.rnaseq)
 Drug_and_Disease <- prepareexpDrugandDisease(Cancer_cell_lines)
 }

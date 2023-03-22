@@ -14,12 +14,12 @@
 #' @export 
 #'
 #' @examples
-#' require(TDbasedUFE)
+#' library(TDbasedUFE)
 #' set.seed(0)
 #' matrix1 <- matrix(runif(1000),20) #row features, column samples
 #' matrix2 <- matrix(runif(2000),40) #row features, column samples
 #' Z <- prepareTensorfromMatrix(t(matrix1),t(matrix2))
-#' Z <- prepareSummarizedExperimentTensorRect(sample=as.character(seq_len(50)),
+#' Z <- prepareTensorRect(sample=as.character(seq_len(50)),
 #' feature=list(as.character(seq_len(20)),as.character(seq_len(40))),
 #' sampleData=list(rep(seq_len(2),each=25)),value=Z)
 #' HOSVD <- computeHosvd(Z)
@@ -44,6 +44,7 @@ selectFeatureTransRect <- function(HOSVD, cond, de = rep(1e-4, 2), p0 = 0.01,
     ui <- fluidPage(
       sidebarLayout(
         sidebarPanel(
+          h3("Select one with prefarable dependence"),
           actionButton(inputId = "action", label = "Next"),
           actionButton(inputId = "prev", label = "Prev"),
           actionButton(inputId = "select", label = "Select")
@@ -69,7 +70,7 @@ selectFeatureTransRect <- function(HOSVD, cond, de = rep(1e-4, 2), p0 = 0.01,
       output$plot <- renderPlot({
         input$action
         input$prev
-        for (i in seq_len(length(cond)))
+        for (i in seq_along(cond))
         {
           boxplot(HOSVD$U[[1]][, j] ~ cond[[1]], main = j)
           abline(0, 0, col = 2, lty = 2)
@@ -80,7 +81,7 @@ selectFeatureTransRect <- function(HOSVD, cond, de = rep(1e-4, 2), p0 = 0.01,
     runApp(app)
     input_all <- j
   } else {
-    for (i in seq_len(length(cond)))
+    for (i in seq_along(cond))
     {
       boxplot(HOSVD$U[[1]][, input_all] ~ cond[[1]], main = input_all)
       abline(0, 0, col = 2, lty = 2)

@@ -39,10 +39,10 @@ Select feature when projection strategy is employed for the
  case where features are shared with multiple omics profiles
 }
 \examples{
-require(TDbasedUFE)
+library(TDbasedUFE)
 Multi <- list(matrix(runif(1000),10),matrix(runif(1000),10),
 matrix(runif(1000),10),matrix(runif(1000),10))
-Z <- prepareTensorfromList(Multi,as.integer(10))
+Z <- prepareTensorfromList(Multi,10L)
 Z <- aperm(Z,c(2,1,3))
 Z <- PrepareSummarizedExperimentTensor(feature =as.character(1:10),
                                       sample=array("",1),value=Z)

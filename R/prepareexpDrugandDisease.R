@@ -9,7 +9,7 @@
 #'
 #' @examples
 #'  \donttest{
-#' require(RTCGA.rnaseq)
+#' library(RTCGA.rnaseq)
 #' Cancer_cell_lines <- list(ACC.rnaseq,BLCA.rnaseq,BRCA.rnaseq)
 #' Drug_and_Disease <- prepareexpDrugandDisease(Cancer_cell_lines)
 #' }
@@ -35,11 +35,11 @@ prepareexpDrugandDisease <- function(Cancer_cell_lines) {
     return(x[ID %in% TCGA$patient.arr, ])
   }
   Cancer_cell_lines_p <- lapply(Cancer_cell_lines, toTCGA)
-  expDrug <- NULL
-  for (i in seq_len(length(Cancer_cell_lines_p)))
-  {
-    expDrug <- rbind(expDrug, data.frame(Cancer_cell_lines_p[[i]]))
-  }
+  
+  expDrug <- lapply(seq_along(Cancer_cell_lines_p), function(i) {
+      data.frame(Cancer_cell_lines_p[[i]])}
+  )
+  expDrug <- do.call("rbind", expDrug)
   expDrug <- convertTCGA(expDrug)
   ID <- lapply(
     strsplit(as.character(Cancer_cell_lines[[3]][, 1]), "-"),

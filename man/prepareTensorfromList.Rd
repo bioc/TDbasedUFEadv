@@ -19,8 +19,8 @@ applying  SVD to individual omics
 Prepare tensor from a list that includes multiple profiles
 }
 \examples{
-require(MOFAdata)
+library(MOFAdata)
 data("CLL_data")
 data("CLL_covariates")
-Z <- prepareTensorfromList(CLL_data,as.integer(10))
+Z <- prepareTensorfromList(CLL_data,10L)
 }

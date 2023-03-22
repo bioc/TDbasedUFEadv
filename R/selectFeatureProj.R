@@ -14,10 +14,10 @@
 #' @export
 #'
 #' @examples
-#' require(TDbasedUFE)
+#' library(TDbasedUFE)
 #' Multi <- list(matrix(runif(1000),10),matrix(runif(1000),10),
 #' matrix(runif(1000),10),matrix(runif(1000),10))
-#' Z <- prepareTensorfromList(Multi,as.integer(10))
+#' Z <- prepareTensorfromList(Multi,10L)
 #' Z <- aperm(Z,c(2,1,3))
 #' Z <- PrepareSummarizedExperimentTensor(feature =as.character(1:10),
 #'                                       sample=array("",1),value=Z)
@@ -49,6 +49,7 @@ selectFeatureProj <-
       ui <- fluidPage(
         sidebarLayout(
           sidebarPanel(
+            h3("Select one with prefarable dependence"),
             actionButton(inputId = "action", label = "Next"),
             actionButton(inputId = "prev", label = "Prev"),
             actionButton(inputId = "select", label = "Select")
@@ -76,7 +77,7 @@ selectFeatureProj <-
           input$prev
           par(mfrow = c(length(cond), 1))
           par(mai = c(0.3, 0.2, 0.2, 0.2))
-          for (i in seq_len(length(cond)))
+          for (i in seq_along(cond))
           {
             boxplot(Multi_list[[i]][, j] ~ cond[[i]],
               main = paste(j, i, sep = "-")
@@ -92,7 +93,7 @@ selectFeatureProj <-
     } else {
       par(mfrow = c(length(cond), 1))
       par(mai = c(0.3, 0.2, 0.2, 0.2))
-      for (i in seq_len(length(cond)))
+      for (i in seq_along(cond))
       {
         boxplot(Multi_list[[i]][, input_all] ~ cond[[i]],
           main = paste(input_all, i, sep = "-")

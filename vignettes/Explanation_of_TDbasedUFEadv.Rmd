@@ -9,7 +9,7 @@ output:
     toc: true
 bibliography: references.bib
 vignette: >
-  %\VignetteIndexEntry{TDbasedUFEadv}
+  %\VignetteIndexEntry{Explanation of TDbasedUFEadv}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

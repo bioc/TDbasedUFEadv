@@ -5,7 +5,7 @@
 \title{Title Perform SVD toward reduced matrix generated from a tensor with 
 partial summation}
 \usage{
-computeSVD(matrix1, matrix2, dim = as.integer(10), scale = TRUE)
+computeSVD(matrix1, matrix2, dim = 10L, scale = TRUE)
 }
 \arguments{
 \item{matrix1}{The first original matrix that generates a tensor}

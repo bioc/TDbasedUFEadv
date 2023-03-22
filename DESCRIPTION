@@ -1,7 +1,7 @@
 Package: TDbasedUFEadv
 Type: Package
 Title: TDbasedUFEadv
-Version: 0.99.15
+Version: 0.99.16
 Language: en-US
 Authors@R: 
     person("Taguchi", "Y-h.", ,
@@ -27,16 +27,12 @@ Encoding: UTF-8
 Imports: 
     TDbasedUFE,
     Biobase,
-    RTCGA,
-    RTCGA.rnaseq,
-    RTCGA.clinical,
     GenomicRanges,
     utils,
     rTensor,
-    BiocStyle,
-    MOFAdata,
     methods,
     graphics,
+    RTCGA,
     stats,
     enrichplot,
     DOSE,
@@ -52,6 +48,10 @@ URL:
 Suggests: 
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    RTCGA.rnaseq,
+    RTCGA.clinical,
+    BiocStyle,
+    MOFAdata 
 VignetteBuilder: knitr
 Config/testthat/edition: 3

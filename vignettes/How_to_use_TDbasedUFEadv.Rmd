@@ -1,5 +1,5 @@
 ---
-title: "QuickStart"
+title: "How to use TDbasedUFEadv"
 author:
 - name: Y-h. Taguchi
   affiliation:  Department of Physics, Chuo University, Tokyo 112-8551, Japan
@@ -9,7 +9,7 @@ output:
     toc: true
 bibliography: references.bib
 vignette: >
-  %\VignetteIndexEntry{QuickStart}
+  %\VignetteIndexEntry{How to use TDbasedUFEadv}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -240,7 +240,7 @@ Z <- prepareTensorfromMatrix(
   t(CLL_data$Drugs[seq_len(200), seq_len(50)]),
   t(CLL_data$Methylation[seq_len(200), seq_len(50)])
 )
-Z <- prepareSummarizedExperimentTensorRect(
+Z <- prepareTensorRect(
   sample = colnames(CLL_data$Drugs)[seq_len(50)],
   feature = list(
     Drugs = rownames(CLL_data$Drugs)[seq_len(200)],
@@ -291,7 +291,7 @@ SVD is applied to an matrix generated from a tensor by taking partial summation.
 SVD <- computeSVD(t(CLL_data$Drugs), t(CLL_data$Methylation))
 Z <- CLL_data$Drugs %*% t(CLL_data$Methylation)
 sample <- colnames(CLL_data$Methylation)
-Z <- prepareSummarizedExperimentTensorRect(
+Z <- prepareTensorRect(
   sample = sample,
   feature = list(rownames(CLL_data$Drugs), rownames(CLL_data$Methylation)),
   value = array(NA, dim(Z)), sampleData = list(CLL_covariates[, 1])

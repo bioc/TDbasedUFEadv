@@ -10,8 +10,8 @@
 #' @export
 #'
 #' @examples
-#' require(RTCGA.clinical)
-#' require(RTCGA.rnaseq)
+#' library(RTCGA.clinical)
+#' library(RTCGA.rnaseq)
 #' Clinical <- list(BLCA.clinical, BRCA.clinical, CESC.clinical, COAD.clinical)
 #' Multi_sample <- list(
 #'   BLCA.rnaseq[seq_len(100), 1, drop = FALSE],
@@ -46,7 +46,7 @@ prepareCondTCGA <- function(Multi_sample, Clinical,
   )
   #
   Cond <- rep(list(NA), length(Multi_sample))
-  for (i in seq_len(length(Multi_sample)))
+  for (i in seq_along(Multi_sample))
   {
     index <- match(
       tolower(substring(Multi_sample[[i]][, 1], 1, 12)),
