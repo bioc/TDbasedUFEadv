@@ -27,7 +27,7 @@
 #'index_all <- selectFeatureTransRect(HOSVD,cond,de=c(0.1,0.1),
 #'input_all=2,p0=1e-10)
 selectFeatureTransRect <- function(HOSVD, cond, de = rep(1e-4, 2), p0 = 0.01,
-                                   breaks = as.integer(100), input_all = NULL) {{
+                                   breaks = 100L, input_all = NULL) {{
   # Augument check
   stopifnot("`HOSVD` must be a list." = is.list(HOSVD))
   stopifnot("`cond` must be a list." = is.list(cond))

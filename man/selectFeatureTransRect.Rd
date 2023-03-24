@@ -10,7 +10,7 @@ selectFeatureTransRect(
   cond,
   de = rep(1e-04, 2),
   p0 = 0.01,
-  breaks = as.integer(100),
+  breaks = 100L,
   input_all = NULL
 )
 }

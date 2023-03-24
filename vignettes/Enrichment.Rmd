@@ -51,7 +51,7 @@ Multi <- list(
   CESC.rnaseq[seq_len(100), 1 + seq_len(1000)],
   COAD.rnaseq[seq_len(100), 1 + seq_len(1000)]
 )
-Z <- prepareTensorfromList(Multi, as.integer(10))
+Z <- prepareTensorfromList(Multi, 10L)
 Z <- aperm(Z, c(2, 1, 3))
 Clinical <- list(BLCA.clinical, BRCA.clinical, CESC.clinical, COAD.clinical)
 Multi_sample <- list(

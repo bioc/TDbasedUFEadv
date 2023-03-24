@@ -11,7 +11,7 @@ selectFeatureProj(
   cond,
   de = 1e-04,
   p0 = 0.01,
-  breaks = as.integer(100),
+  breaks = 100L,
   input_all = NULL
 )
 }

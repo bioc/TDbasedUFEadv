@@ -25,7 +25,7 @@
 #' cond <- rep(list(rep(1:2,each=5)),4)
 #' index <- selectFeatureProj(HOSVD,Multi,cond,de=0.1,input_all=2)
 selectFeatureProj <-
-  function(HOSVD, Multi, cond, de = 1e-4, p0 = 0.01, breaks = as.integer(100),
+  function(HOSVD, Multi, cond, de = 1e-4, p0 = 0.01, breaks = 100L,
            input_all = NULL) {
     # Augument check
     stopifnot("`HOSVD` must be a list." = is.list(HOSVD))

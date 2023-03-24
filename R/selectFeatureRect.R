@@ -21,7 +21,7 @@
 #' list(NULL,rep(seq_len(2),each=5),rep(seq_len(2),each=10)),de=rep(0.5,2),
 #' input_all=1)
 selectFeatureRect <- function(SVD, cond, de = rep(1e-4, 2), p0 = 0.01,
-                              breaks = as.integer(100), input_all = NULL) {
+                              breaks = 100L, input_all = NULL) {
   # Augument check
   stopifnot("`SVD` must be a list." = is.list(SVD))
   stopifnot("`cond` must be a list." = is.list(cond))
