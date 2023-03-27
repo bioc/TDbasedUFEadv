@@ -1,4 +1,10 @@
+# TDbasedUFEadv 0.99.18 (2023-03-27)
+
+-  Addressing reviews comments:
+   * Fragmenting testthat toward individual functions
+
 # TDbasedUFEadv 0.99.17 (2023-03-25)
+
 
 -  Addressing reviews comments:
    * Replace as.integer with L
