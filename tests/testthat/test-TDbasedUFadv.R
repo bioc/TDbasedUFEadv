@@ -8,7 +8,7 @@ test_that("prepareexpDrugandDisease works", {
   Drug_and_Disease <- prepareexpDrugandDisease(Cancer_cell_lines)
   expect_true(is.list(Drug_and_Disease))
   expDrug <<- Drug_and_Disease$expDrug
-  expDisease <<- Drug_and_Disease$expDisease
+  expDisease <- Drug_and_Disease$expDisease
 })
 test_that("prepareCondDrugandDisease work", {
   Cond <- prepareCondDrugandDisease(expDrug)
@@ -67,7 +67,7 @@ test_that("selectFeatureRect works", {
   expect_true(is.list(index_all))
 })
 test_that(" prepareTensorfromList",{
-  Z <<- prepareTensorfromList(CLL_data, 10L)
+  Z <- prepareTensorfromList(CLL_data, 10L)
   expect_true(is.array(Z))
 })
 test_that("prepareTensorfromList works", {
