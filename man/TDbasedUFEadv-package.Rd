@@ -4,9 +4,9 @@
 \name{TDbasedUFEadv-package}
 \alias{TDbasedUFEadv}
 \alias{TDbasedUFEadv-package}
-\title{TDbasedUFEadv: TDbasedUFEadv}
+\title{TDbasedUFEadv: Advanced package of tensor decomposition based unsupervised feature extraction}
 \description{
-This is a comprehensive package to perform Tensor decomposition based unsupervised feature extraction. It can perform unsupervised feature extraction. It uses tensor decomposition. It is applicable to gene expression, DNA methylation, and histone modification etc. It can perform multiomics analysis. It is also applicable to single cell omics data sets.
+This is an advanced version of TDbasedUFE, which is a comprehensive package to perform Tensor decomposition based unsupervised feature extraction. In contrast to TDbasedUFE which can perform simple the feature selection and the multiomics analyses, this package can perform more complicated and advanced features, but they are not so popularly required. Only users who require more specific features can make use of its functionality.
 }
 \seealso{
 Useful links:
@@ -17,7 +17,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Taguchi Y-h. \email{tag@granular.com} (\href{https://orcid.org/0000-0003-0867-8986}{ORCID})
+\strong{Maintainer}: Y-h. Taguchi \email{tag@granular.com} (\href{https://orcid.org/0000-0003-0867-8986}{ORCID})
 
 }
 \keyword{internal}
