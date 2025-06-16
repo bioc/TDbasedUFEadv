@@ -93,12 +93,12 @@ toward genes selected by TDbasedUFE and TDbasedUFEadv.
 setEnrichrSite("Enrichr")
 websiteLive <- TRUE
 dbs <- c(
-  "GO_Molecular_Function_2021", "GO_Cellular_Component_2021",
-  "GO_Biological_Process_2021"
+  "GO_Molecular_Function_2015", "GO_Cellular_Component_2015",
+  "GO_Biological_Process_2015"
 )
 enriched <- enrichr(genes, dbs)
 if (websiteLive) {
-  plotEnrich(enriched$GO_Biological_Process_2021,
+  plotEnrich(enriched$GO_Biological_Process_2015,
     showTerms = 20, numChar = 40, y = "Count",
     orderBy = "P.value"
   )
