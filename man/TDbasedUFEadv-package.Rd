@@ -19,5 +19,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Y-h. Taguchi \email{tag@granular.com} (\href{https://orcid.org/0000-0003-0867-8986}{ORCID})
 
+Authors:
+\itemize{
+  \item Y-h. Taguchi \email{tag@granular.com} (\href{https://orcid.org/0000-0003-0867-8986}{ORCID})
+}
+
 }
 \keyword{internal}

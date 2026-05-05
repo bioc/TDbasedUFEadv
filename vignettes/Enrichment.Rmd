@@ -31,12 +31,8 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(TDbasedUFE)
 library(TDbasedUFEadv)
-library(DOSE)
-library(enrichplot)
 library(RTCGA.rnaseq)
 library(RTCGA.clinical)
-library(enrichR)
-library(STRINGdb)
 ```
 
 # Introduction
@@ -89,20 +85,28 @@ entrez <- unlist(lapply(strsplit(tableFeatures(Z, index)[, 1], "|",
 Enrichr[@Enrichr] is one of tools that often provides us significant results 
 toward genes selected by TDbasedUFE and TDbasedUFEadv.
 
-``` {r}
-setEnrichrSite("Enrichr")
-websiteLive <- TRUE
-dbs <- c(
-  "GO_Molecular_Function_2021", "GO_Cellular_Component_2021",
-  "GO_Biological_Process_2021"
-)
-enriched <- enrichr(genes, dbs)
-if (websiteLive) {
-  plotEnrich(enriched$GO_Biological_Process_2021,
-    showTerms = 20, numChar = 40, y = "Count",
-    orderBy = "P.value"
-  )
+```{r enrichr-example, eval=FALSE}
+if (!requireNamespace("enrichR", quietly = TRUE)) {
+    stop("The enrichR package is required to run this example.")
 }
+
+enrichR::setEnrichrSite("Enrichr")
+
+dbs <- c(
+    "GO_Molecular_Function_2015",
+    "GO_Cellular_Component_2015",
+    "GO_Biological_Process_2015"
+)
+
+enriched <- enrichR::enrichr(genes, dbs)
+
+enrichR::plotEnrich(
+    enriched$GO_Biological_Process_2015,
+    showTerms = 20,
+    numChar = 40,
+    y = "Count",
+    orderBy = "P.value"
+)
 ```
 
 Enrichr can provide you huge number of enrichment analyses, 
@@ -117,17 +121,28 @@ STRING[@STRING] is enrichment analyses based upon protein-protein interaction,
 which is known to provide often significant results toward genes selected by
 TDbasedUFE as well as TDbasedUFEadv.
 
-```{r}
-options(timeout = 200)
-string_db <- STRINGdb$new(
-  version = "11.5",
-  species = 9606, score_threshold = 200,
-  network_type = "full", input_directory = ""
+```{r stringdb-example, eval=FALSE}
+if (!requireNamespace("STRINGdb", quietly = TRUE)) {
+    stop("The STRINGdb package is required to run this example.")
+}
+
+string_cache <- tools::R_user_dir("TDbasedUFEadv", which = "cache")
+dir.create(string_cache, recursive = TRUE, showWarnings = FALSE)
+
+string_db <- STRINGdb::STRINGdb$new(
+    version = "11.5",
+    species = 9606,
+    score_threshold = 200,
+    network_type = "full",
+    input_directory = string_cache
 )
-example1_mapped <- string_db$map(data.frame(genes = genes),
-  "genes",
-  removeUnmappedRows = TRUE
+
+example1_mapped <- string_db$map(
+    data.frame(genes = genes),
+    "genes",
+    removeUnmappedRows = TRUE
 )
+
 hits <- example1_mapped$STRING_id
 string_db$plot_network(hits)
 ```
@@ -144,9 +159,23 @@ does not have the ways approached from R. Thus, we recommend RITAN as
 an alternative. It can list significant ones among multiple categories.
 
 
-```{r}
-edo <- enrichDGN(entrez)
-dotplot(edo, showCategory=30) + ggtitle("dotplot for ORA")
+```{r dose-example}
+if (
+    requireNamespace("DOSE", quietly = TRUE) &&
+    requireNamespace("enrichplot", quietly = TRUE) &&
+    requireNamespace("gson", quietly = TRUE) &&
+    requireNamespace("ggplot2", quietly = TRUE)
+) {
+    edo <- DOSE::enrichDGN(entrez)
+
+    enrichplot::dotplot(edo, showCategory = 30) +
+        ggplot2::ggtitle("dotplot for ORA")
+} else {
+    message(
+        "Skipping DOSE/enrichplot example because one or more optional packages ",
+        "are not installed: DOSE, enrichplot, gson, ggplot2."
+    )
+}
 ```
 ```{r}
 sessionInfo()
