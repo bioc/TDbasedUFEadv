@@ -1,13 +1,13 @@
 Package: TDbasedUFEadv
 Type: Package
 Title: Advanced package of tensor decomposition based unsupervised feature extraction
-Version: 1.12.0
+Version: 1.12.1
 Language: en-US
 Authors@R: 
     person("Y-h.", "Taguchi", ,
     "tag@granular.com", role = c("aut", "cre"),
     comment = c(ORCID  = "0000-0003-0867-8986"))
-Description:   
+Description: 
     This is an advanced version of TDbasedUFE, which is a  comprehensive package
     to perform Tensor decomposition based unsupervised feature extraction.
     In contrast to TDbasedUFE which can perform simple the feature selection and 
@@ -30,15 +30,9 @@ Imports:
     rTensor,
     methods,
     graphics,
-    RTCGA,
     stats,
-    enrichplot,
-    DOSE,
-    STRINGdb,
-    enrichR,
     hash,
     shiny
-RoxygenNote: 7.2.3
 BugReports: 
  https://github.com/tagtag/TDbasedUFEadv/issues
 URL:
@@ -50,6 +44,13 @@ Suggests:
     RTCGA.rnaseq,
     RTCGA.clinical,
     BiocStyle,
-    MOFAdata 
+    MOFAdata,
+    STRINGdb,
+    enrichR,
+    enrichplot,
+    DOSE,
+    gson,
+    ggplot2
 VignetteBuilder: knitr
 Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0

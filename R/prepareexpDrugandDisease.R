@@ -40,7 +40,7 @@ prepareexpDrugandDisease <- function(Cancer_cell_lines) {
       data.frame(Cancer_cell_lines_p[[i]])}
   )
   expDrug <- do.call("rbind", expDrug)
-  expDrug <- convertTCGA(expDrug)
+  expDrug <- .convertTCGA(expDrug)
   ID <- lapply(
     strsplit(as.character(Cancer_cell_lines[[3]][, 1]), "-"),
     "[", seq_len(3)
@@ -48,6 +48,6 @@ prepareexpDrugandDisease <- function(Cancer_cell_lines) {
   ID <- t(data.frame(ID))
   ID <- paste(ID[, 1], ID[, 2], ID[, 3], sep = "-")
   expDisease <- Cancer_cell_lines[[3]][!(ID %in% TCGA$patient.arr), ]
-  expDisease <- convertTCGA(expDisease)
+  expDisease <- .convertTCGA(expDisease)
   return(list(expDrug = expDrug, expDisease = expDisease))
 }
