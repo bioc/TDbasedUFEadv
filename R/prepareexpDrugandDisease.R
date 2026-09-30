@@ -8,11 +8,12 @@
 #' @export
 #'
 #' @examples
-#'  \donttest{
-#' library(RTCGA.rnaseq)
-#' Cancer_cell_lines <- list(ACC.rnaseq,BLCA.rnaseq,BRCA.rnaseq)
+#' input <- readRDS(system.file(
+#'   "extdata", "drug_disease_test_inputs.rds",
+#'   package = "TDbasedUFEadv", mustWork = TRUE
+#' ))
+#' Cancer_cell_lines <- input$Cancer_cell_lines[seq_len(3)]
 #' Drug_and_Disease <- prepareexpDrugandDisease(Cancer_cell_lines)
-#' }
 prepareexpDrugandDisease <- function(Cancer_cell_lines) {
   # Argument check
   stopifnot(
@@ -37,7 +38,7 @@ prepareexpDrugandDisease <- function(Cancer_cell_lines) {
   Cancer_cell_lines_p <- lapply(Cancer_cell_lines, toTCGA)
   
   expDrug <- lapply(seq_along(Cancer_cell_lines_p), function(i) {
-      data.frame(Cancer_cell_lines_p[[i]])}
+      data.frame(Cancer_cell_lines_p[[i]], check.names = FALSE)}
   )
   expDrug <- do.call("rbind", expDrug)
   expDrug <- .convertTCGA(expDrug)

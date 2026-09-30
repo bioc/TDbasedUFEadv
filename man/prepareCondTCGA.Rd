@@ -28,19 +28,12 @@ list of sample labels
 Prepare Sample label for TCGA data
 }
 \examples{
-library(RTCGA.clinical)
-library(RTCGA.rnaseq)
-Clinical <- list(BLCA.clinical, BRCA.clinical, CESC.clinical, COAD.clinical)
-Multi_sample <- list(
-  BLCA.rnaseq[seq_len(100), 1, drop = FALSE],
-  BRCA.rnaseq[seq_len(100), 1, drop = FALSE],
-  CESC.rnaseq[seq_len(100), 1, drop = FALSE],
-  COAD.rnaseq[seq_len(100), 1, drop = FALSE]
-)
-ID_column_of_Multi_sample <- c(770, 1482, 773, 791)
-ID_column_of_Clinical <- c(20, 20, 12, 14)
+example <- readRDS(system.file(
+  "extdata", "enrichment_example.rds",
+  package = "TDbasedUFEadv", mustWork = TRUE
+))
 cond <- prepareCondTCGA(
-  Multi_sample, Clinical,
-  ID_column_of_Multi_sample, ID_column_of_Clinical
+  example$Multi_sample, example$Clinical,
+  rep(2, 4), rep(1, 4)
 )
 }

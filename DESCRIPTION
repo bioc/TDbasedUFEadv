@@ -1,7 +1,7 @@
 Package: TDbasedUFEadv
 Type: Package
 Title: Advanced package of tensor decomposition based unsupervised feature extraction
-Version: 1.13.1
+Version: 1.13.2
 Language: en-US
 Authors@R: 
     person("Y-h.", "Taguchi", ,
@@ -41,10 +41,11 @@ Suggests:
     knitr,
     rmarkdown,
     testthat (>= 3.0.0),
-    RTCGA.rnaseq,
-    RTCGA.clinical,
     BiocStyle,
     MOFAdata,
+    curatedTCGAData,
+    MultiAssayExperiment,
+    SummarizedExperiment,
     STRINGdb,
     enrichR,
     enrichplot,
@@ -53,4 +54,4 @@ Suggests:
     ggplot2
 VignetteBuilder: knitr
 Config/testthat/edition: 3
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0

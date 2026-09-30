@@ -29,11 +29,9 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(TDbasedUFEadv)
 library(Biobase)
-library(RTCGA.rnaseq)
 library(TDbasedUFE)
 library(MOFAdata)
 library(TDbasedUFE)
-library(RTCGA.clinical)
 ```
 # Installation
 
@@ -64,17 +62,45 @@ one. At first, we try to prepare two omics profiles, expDrug and expDisease,
 that represent gene expression profiles of cell lines treated by various drugs
 and a cell line of diseases by
 ``` {r}
-Cancer_cell_lines <- list(ACC.rnaseq, BLCA.rnaseq, BRCA.rnaseq, CESC.rnaseq)
+cancers <- c("ACC", "BLCA", "BRCA", "CESC")
+expression <- setNames(lapply(cancers, function(cancer) {
+  tcga <- curatedTCGAData::curatedTCGAData(
+    diseaseCode = cancer,
+    assays = "RNASeq2GeneNorm",
+    version = "2.0.1",
+    dry.run = FALSE
+  )
+  se <- MultiAssayExperiment::experiments(tcga)[[1]]
+  SummarizedExperiment::assay(se)
+}), cancers)
+
+common_features <- Reduce(intersect, lapply(expression, rownames))
+
+Cancer_cell_lines <- lapply(expression, function(x) {
+  x <- x[common_features, , drop = FALSE]
+  data.frame(
+    bcr_patient_barcode = colnames(x),
+    t(x),
+    check.names = FALSE,
+    stringsAsFactors = FALSE
+  )
+})
+
 Drug_and_Disease <- prepareexpDrugandDisease(Cancer_cell_lines)
 expDrug <- Drug_and_Disease$expDrug
 expDisease <- Drug_and_Disease$expDisease
+stopifnot(
+  identical(rownames(expDrug), common_features),
+  identical(rownames(expDisease), common_features)
+)
 rm(Cancer_cell_lines)
 ```
-expDrug is taken from RTCGA package and those associated with Drugs based upon 
-[@Ding2016].  Those files are listed in drug_response.txt included in Clinical
-drug responses at http://lifeome.net/supp/drug_response/.
-expDisease is composed of files in BRCA.rnaseq, but not included in expDrug
-(For more details, see source code of prepareexpDrugandDisease).
+Expression data are obtained from curatedTCGAData using the
+RNASeq2GeneNorm assay and data version 2.0.1. All genes shared by the four
+cancer cohorts are retained. Patient identifiers are matched to the bundled
+drug_response.txt, originally based on [@Ding2016], to construct expDrug.
+expDisease contains the remaining BRCA samples.
+
 Then prepare a tensor as
 ```{r}
 Z <- prepareTensorfromMatrix(
@@ -144,7 +170,6 @@ head(tableFeatures(Z,index))
 ```{r}
 rm(Z)
 rm(HOSVD)
-detach("package:RTCGA.rnaseq")
 rm(SVD)
 ```
 The described methods were frequently used
@@ -435,19 +460,19 @@ This method was used in many studies[@Taguchi2022] by maintainer.
 ## When features are shared
 
 Now we discuss what to do when multiple omics data share not samples but 
-features. We prepare data set from RTCGA.rnaseq as follows, with retrieving 
-reduced partial sets from four ones. One should notice that RTCGA is an old
+features. We use a bundled subset originally extracted from
+RTCGA.rnaseq, containing 100 samples and 1,000 genes for each of four
+cancer types. One should notice that RTCGA is an old
 package from TCGA (as for 2015). I used it only for demonstration purpose.
 If you would like to use TCGA for your research, I recommend you to use
 more modern packages, e.g., curatedTCGAData in Bioconductor.
 ```{r}
-library(RTCGA.rnaseq) #it must be here, not in the first chunk
-Multi <- list(
-  BLCA.rnaseq[seq_len(100), 1 + seq_len(1000)],
-  BRCA.rnaseq[seq_len(100), 1 + seq_len(1000)],
-  CESC.rnaseq[seq_len(100), 1 + seq_len(1000)],
-  COAD.rnaseq[seq_len(100), 1 + seq_len(1000)]
-)
+example <- readRDS(system.file(
+  "extdata", "enrichment_example.rds",
+  package = "TDbasedUFEadv",
+  mustWork = TRUE
+))
+Multi <- example$Multi
 ```
 Multi includes four objects, each of which is matrix that represent 100 samples (rows) and 1000 (features). Please note it is different from usual cases where columns and rows are features and samples, respectively. They are marge into tensor as follows
 ```{r}
@@ -461,24 +486,10 @@ because of the difference as mentioned in the above. Then tensor object
 associated with various information is generated as usual as follows and 
 HOSVD was applied to it. 
 ``` {r}
-Clinical <- list(BLCA.clinical, BRCA.clinical, CESC.clinical, COAD.clinical)
-Multi_sample <- list(
-  BLCA.rnaseq[seq_len(100), 1, drop = FALSE],
-  BRCA.rnaseq[seq_len(100), 1, drop = FALSE],
-  CESC.rnaseq[seq_len(100), 1, drop = FALSE],
-  COAD.rnaseq[seq_len(100), 1, drop = FALSE]
-)
-# patient.stage_event.tnm_categories.pathologic_categories.pathologic_m
-ID_column_of_Multi_sample <- c(770, 1482, 773, 791)
-# patient.bcr_patient_barcode
-ID_column_of_Clinical <- c(20, 20, 12, 14)
 Z <- PrepareSummarizedExperimentTensor(
-  feature = colnames(ACC.rnaseq)[1 + seq_len(1000)],
+  feature = example$feature,
   sample = array("", 1), value = Z,
-  sampleData = prepareCondTCGA(
-    Multi_sample, Clinical,
-    ID_column_of_Multi_sample, ID_column_of_Clinical
-  )
+  sampleData = example$cond
 )
 HOSVD <- computeHosvd(Z)
 ```

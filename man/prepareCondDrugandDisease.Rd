@@ -16,10 +16,12 @@ Condition matrix for expDrug
 Prepare condition matrix for expDrug
 }
 \examples{
-\donttest{
-library(RTCGA.rnaseq)
-Cancer_cell_lines <- list(ACC.rnaseq,BLCA.rnaseq,BRCA.rnaseq)
+input <- readRDS(system.file(
+  "extdata", "drug_disease_test_inputs.rds",
+  package = "TDbasedUFEadv", mustWork = TRUE
+))
+Cancer_cell_lines <- input$Cancer_cell_lines[seq_len(3)]
 Drug_and_Disease <- prepareexpDrugandDisease(Cancer_cell_lines)
+
 Cond <- prepareCondDrugandDisease(Drug_and_Disease$expDrug)
-}
 }

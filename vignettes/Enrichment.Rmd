@@ -31,42 +31,27 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(TDbasedUFE)
 library(TDbasedUFEadv)
-library(RTCGA.rnaseq)
-library(RTCGA.clinical)
 ```
 
 # Introduction
 
 It might be helpful to demonstrate how to evaluate selected genes by enrichment analysis. Here, we show some of useful tools applied to the output from TDbasedUFEadv
-In order foe this, we reproduce one example in "How to use TDbasedUFEadv" as follows.
+For this purpose, we use a bundled subset of TCGA RNA-seq data originally distributed in RTCGA.rnaseq, together with clinical conditions derived from RTCGA.clinical. The subset contains 100 samples and 1,000 genes for each of BLCA, BRCA, CESC, and COAD. The original package versions and subset indices are recorded in the source element of the bundled data.
 
 ``` {r}
-Multi <- list(
-  BLCA.rnaseq[seq_len(100), 1 + seq_len(1000)],
-  BRCA.rnaseq[seq_len(100), 1 + seq_len(1000)],
-  CESC.rnaseq[seq_len(100), 1 + seq_len(1000)],
-  COAD.rnaseq[seq_len(100), 1 + seq_len(1000)]
-)
+example <- readRDS(system.file(
+  "extdata", "enrichment_example.rds",
+  package = "TDbasedUFEadv",
+  mustWork = TRUE
+))
+
+Multi <- example$Multi
 Z <- prepareTensorfromList(Multi, 10L)
 Z <- aperm(Z, c(2, 1, 3))
-Clinical <- list(BLCA.clinical, BRCA.clinical, CESC.clinical, COAD.clinical)
-Multi_sample <- list(
-  BLCA.rnaseq[seq_len(100), 1, drop = FALSE],
-  BRCA.rnaseq[seq_len(100), 1, drop = FALSE],
-  CESC.rnaseq[seq_len(100), 1, drop = FALSE],
-  COAD.rnaseq[seq_len(100), 1, drop = FALSE]
-)
-# patient.stage_event.tnm_categories.pathologic_categories.pathologic_m
-ID_column_of_Multi_sample <- c(770, 1482, 773, 791)
-# patient.bcr_patient_barcode
-ID_column_of_Clinical <- c(20, 20, 12, 14)
 Z <- PrepareSummarizedExperimentTensor(
-  feature = colnames(ACC.rnaseq)[1 + seq_len(1000)],
+  feature = example$feature,
   sample = array("", 1), value = Z,
-  sampleData = prepareCondTCGA(
-    Multi_sample, Clinical,
-    ID_column_of_Multi_sample, ID_column_of_Clinical
-  )
+  sampleData = example$cond
 )
 HOSVD <- computeHosvd(Z)
 cond <- attr(Z, "sampleData")

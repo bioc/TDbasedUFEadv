@@ -1,12 +1,26 @@
-require(RTCGA.rnaseq)
-require(RTCGA.clinical)
+tcga_example <- readRDS(system.file(
+  "extdata", "enrichment_example.rds",
+  package = "TDbasedUFEadv", mustWork = TRUE
+))
+drug_test_input <- readRDS(system.file(
+  "extdata", "drug_disease_test_inputs.rds",
+  package = "TDbasedUFEadv", mustWork = TRUE
+))
+
 require(Biobase)
 require(MOFAdata)
 
 test_that("prepareexpDrugandDisease works", {  
-  Cancer_cell_lines <- list(ACC.rnaseq, BLCA.rnaseq, BRCA.rnaseq)
+  Cancer_cell_lines <- drug_test_input$Cancer_cell_lines[seq_len(3)]
   Drug_and_Disease <- prepareexpDrugandDisease(Cancer_cell_lines)
   expect_true(is.list(Drug_and_Disease))
+  expected_features <- colnames(Cancer_cell_lines[[1]])[-1]
+  expect_identical(
+    rownames(Drug_and_Disease$expDrug), expected_features
+  )
+  expect_identical(
+    rownames(Drug_and_Disease$expDisease), expected_features
+  )
   expDrug <<- Drug_and_Disease$expDrug
   expDisease <- Drug_and_Disease$expDisease
 })
@@ -71,36 +85,23 @@ test_that(" prepareTensorfromList",{
   expect_true(is.array(Z))
 })
 test_that("prepareTensorfromList works", {
-  Multi <<- list(
-    BLCA.rnaseq[seq_len(100), 1 + seq_len(1000)],
-    BRCA.rnaseq[seq_len(100), 1 + seq_len(1000)],
-    CESC.rnaseq[seq_len(100), 1 + seq_len(1000)],
-    COAD.rnaseq[seq_len(100), 1 + seq_len(1000)]
-  )
+  Multi <<- tcga_example$Multi
   Z <<- prepareTensorfromList(Multi, 10L)
   expect_true(is.array(Z))
   })
 test_that("prepareCondTCGA works", {
   Z <<- aperm(Z, c(2, 1, 3))
-  Clinical <- list(BLCA.clinical, BRCA.clinical, CESC.clinical, COAD.clinical)
-  Multi_sample <- list(
-    BLCA.rnaseq[seq_len(100), 1, drop = FALSE],
-    BRCA.rnaseq[seq_len(100), 1, drop = FALSE],
-    CESC.rnaseq[seq_len(100), 1, drop = FALSE],
-    COAD.rnaseq[seq_len(100), 1, drop = FALSE]
+  Cond <- prepareCondTCGA(
+    tcga_example$Multi_sample,
+    tcga_example$Clinical,
+    rep(2, 4), rep(1, 4)
   )
-  # patient.stage_event.tnm_categories.pathologic_categories.pathologic_m
-  ID_column_of_Multi_sample <- c(770, 1482, 773, 791)
-  # patient.bcr_patient_barcode
-  ID_column_of_Clinical <- c(20, 20, 12, 14)
+  expect_identical(Cond, tcga_example$cond)
+
   Z <<- PrepareSummarizedExperimentTensor(
-    feature = colnames(ACC.rnaseq)[1 + seq_len(1000)],
+    feature = tcga_example$feature,
     sample = array("", 1), value = Z,
-    sampleData = prepareCondTCGA(
-      Multi_sample,
-      Clinical, ID_column_of_Multi_sample,
-      ID_column_of_Clinical
-    )
+    sampleData = Cond
   )
   expect_true(is(Z, "SummarizedExperimentTensor"))
 })
