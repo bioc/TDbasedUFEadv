@@ -144,6 +144,8 @@ does not have the ways approached from R. Thus, we recommend RITAN as
 an alternative. It can list significant ones among multiple categories.
 
 
+The following example performs disease enrichment analysis using the Human Disease Ontology (HDO) with `DOSE::enrichDO()`. It replaces the former DisGeNET example because `enrichDGN()` was removed from DOSE following a DisGeNET license change. The annotation database differs, so the enrichment results may also differ.
+
 ```{r dose-example}
 if (
     requireNamespace("DOSE", quietly = TRUE) &&
@@ -151,7 +153,7 @@ if (
     requireNamespace("gson", quietly = TRUE) &&
     requireNamespace("ggplot2", quietly = TRUE)
 ) {
-    edo <- DOSE::enrichDGN(entrez)
+    edo <- DOSE::enrichDO(entrez, ont = "HDO")
 
     enrichplot::dotplot(edo, showCategory = 30) +
         ggplot2::ggtitle("dotplot for ORA")

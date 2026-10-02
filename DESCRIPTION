@@ -1,7 +1,7 @@
 Package: TDbasedUFEadv
 Type: Package
 Title: Advanced package of tensor decomposition based unsupervised feature extraction
-Version: 1.13.2
+Version: 1.13.3
 Language: en-US
 Authors@R: 
     person("Y-h.", "Taguchi", ,
